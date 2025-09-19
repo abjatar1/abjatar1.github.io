@@ -7,16 +7,18 @@
     <title>Abhirv Jatar - Portfolio</title>
   </head>
   <body>
-    <header class="sticky top-0 w-full flex flex-row justify-between items-center py-5 px-12 shadow-2xl/30 bg-white">
+    <script src="app.js"></script>
+    <script src="//unpkg.com/alpinejs" defer ></script>
+    <header class="z-10 sticky top-0 w-full flex flex-row justify-between items-center py-5 px-12 shadow-2xl/30 bg-white">
       <p class="text-2xl font-stretch-expanded hover:scale-120 transition-transform duration-300">abhirv jatar</p>
       <ul class="flex flex-row justify-center items-center">
         <div class="hover:scale-120 transition-transform duration-300"><a href="index.html" class="bg-sky-600 shadow-2xl/30 shadow-slate-800 py-2 px-5 rounded-lg text-sky-50 border-2 ml-6 hover:border-sky-600 hover:bg-sky-50 hover:text-sky-900">Home</a></div>
         <div class="hover:scale-120 transition-transform duration-300"><a href="projects.html" class="bg-sky-600 shadow-2xl/30 shadow-slate-800 py-2 px-5 rounded-lg text-sky-50 border-2 ml-6 hover:border-sky-600 hover:bg-sky-50 hover:text-sky-900">Projects</a></div>
       </ul>
     </header>
-    <div class="w-full py-36 bg-sky-900 pl-24 shadow-slate-800 shadow-2xl/30">
-      <h1 class="text-7xl text-sky-100 text-left font-semibold font-stretch-expanded mb-2">Portfolio Website</h1>
-      <h2 class="text-3xl text-sky-100 text-left">Boring porfolio website and I have no ideas what to do.</h2>
+    <div class="w-full py-36 bg-sky-900 px-24 shadow-slate-800 shadow-2xl/30" x-data="getHello()" >
+      <h1 class="text-9xl text-sky-100 text-center font-semibold font-stretch-expanded mb-2 text-shadow-xl" x-text="hello"></h1>
+      <h2 class="text-3xl text-sky-100 text-center">welcome to the portfolio website</h2>
     </div>
     <div class="w-full py-12 bg-white">
       <h1 class="text-center text-3xl font-stretch-expanded">Site Architecture</h1>
