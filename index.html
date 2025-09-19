@@ -1,37 +1,269 @@
 <!DOCTYPE html>
 <html class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <title>Abhirv Jatar - Portfolio</title>
-  </head>
-  <body>
-    <script src="app.js"></script>
-    <script src="//unpkg.com/alpinejs" defer ></script>
-    <header class="z-10 sticky top-0 w-full flex flex-row justify-between items-center py-5 px-12 shadow-2xl/30 bg-white">
-      <p class="text-2xl font-stretch-expanded hover:scale-120 transition-transform duration-300">abhirv jatar</p>
-      <ul class="flex flex-row justify-center items-center">
-        <div class="hover:scale-120 transition-transform duration-300"><a href="index.html" class="bg-sky-600 shadow-2xl/30 shadow-slate-800 py-2 px-5 rounded-lg text-sky-50 border-2 ml-6 hover:border-sky-600 hover:bg-sky-50 hover:text-sky-900">Home</a></div>
-        <div class="hover:scale-120 transition-transform duration-300"><a href="projects.html" class="bg-sky-600 shadow-2xl/30 shadow-slate-800 py-2 px-5 rounded-lg text-sky-50 border-2 ml-6 hover:border-sky-600 hover:bg-sky-50 hover:text-sky-900">Projects</a></div>
-      </ul>
-    </header>
-    <div class="w-full py-36 bg-sky-900 px-24 shadow-slate-800 shadow-2xl/30" x-data="getHello()" >
-      <h1 class="text-9xl text-sky-100 text-center font-semibold font-stretch-expanded mb-2 text-shadow-xl" x-text="hello"></h1>
-      <h2 class="text-3xl text-sky-100 text-center">welcome to the portfolio website</h2>
-    </div>
-    <div class="w-full py-12 bg-white">
-      <h1 class="text-center text-3xl font-stretch-expanded">Site Architecture</h1>
-      <p class="text-center text-xl text-slate-600">Built on Tailwind and Alpine on Tuesday 16th, 2025</p>
-      <div class="flex flex-row justify-evenly items-center py-4 my-12">
-        <img src="tailwindcss-logotype.svg" class="h-8 hover:scale-120 transition-transform duration-300" alt="">
-        <img src="https://alpinejs.dev/alpine_long.svg" class="h-8 hover:scale-120 transition-transform duration-300" alt="">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <title>Abhirv Jatar - Portfolio</title>
+</head>
+
+<body>
+  <script src="app.js"></script>
+  <script src="//unpkg.com/alpinejs" defer></script>
+  <header class="z-10 sticky top-0 w-full flex flex-row justify-between items-center py-5 px-12 shadow-2xl/30 bg-white">
+    <p class="text-2xl font-stretch-expanded hover:scale-120 transition-transform duration-300">
+      abhirv jatar
+    </p>
+    <ul class="flex flex-row justify-center items-center">
+      <div class="hover:scale-120 transition-transform duration-300">
+        <a href="index.html"
+          class="bg-sky-600 shadow-2xl/30 shadow-slate-800 py-2 px-5 rounded-lg text-sky-50 border-2 ml-6 hover:border-sky-600 hover:bg-sky-50 hover:text-sky-900">Home</a>
       </div>
+      <div class="hover:scale-120 transition-transform duration-300">
+        <a href="projects.html"
+          class="bg-sky-600 shadow-2xl/30 shadow-slate-800 py-2 px-5 rounded-lg text-sky-50 border-2 ml-6 hover:border-sky-600 hover:bg-sky-50 hover:text-sky-900">Projects</a>
+      </div>
+    </ul>
+  </header>
+  <div class="w-full py-36 bg-sky-900 px-24 shadow-slate-800 shadow-2xl/30" x-data="getHello()">
+    <h1
+      class="text-9xl text-sky-100 text-center font-semibold font-stretch-expanded mb-2 text-shadow-xl bg-clip-text bg-gradient-to-b from-sky-500 to-sky-700"
+      x-text="hello"></h1>
+    <h2 class="text-3xl text-sky-100 text-center">
+      welcome to the portfolio website
+    </h2>
+  </div>
+
+  <!-- The Scrolling Bar -->
+  <div x-data="getHelloBar()" x-init="init()" class="overflow-hidden whitespace-nowrap w-full border p-2 bg-gray-100"
+    style="font-family: monospace; font-size: 1.1rem">
+    <div class="flex animate-scroll">
+      <span x-text="line" class="px-8"></span>
+      <span x-text="line" class="px-8"></span>
     </div>
-    <footer class="w-full flex flex-row justify-end items-center py-2 px-12 shadow-2xl/30 bg-gray-900">
-      <ul>
-        <p class="text-sm font-stretch-expanded text-sky-50">developed by abhirv jatar</p>
-      </ul>
-    </footer>
-  </body>
+  </div>
+
+  <style>
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .animate-scroll {
+      display: inline-flex;
+      animation: scroll 90s linear infinite;
+      width: max-content;
+    }
+  </style>
+
+  <script>
+    function getHelloBar() {
+      return {
+        greetings: [
+          // 🌍 Africa
+          "jambo",
+          "sawubona",
+          "molo",
+          "sanibonani",
+          "sannu",
+          "nnoo",
+          "bawo",
+          "asalaam",
+          "selam",
+          "dehna walachu",
+          "mulishani",
+          "moni",
+          "muli bwanji",
+          "lumela",
+          "dumela",
+          "salaam alaykum",
+          "kwaziwai",
+          "barka da zuwa",
+
+          // 🌍 Middle East & Central Asia
+          "marhaba",
+          "salaam",
+          "sobh bekheir",
+          "barev",
+          "salom",
+          "salam",
+          "salametsiz be",
+          "shalom",
+          "merhaba",
+          "yassas",
+
+          // 🌍 South & Southeast Asia (Latin + scripts)
+          "namaste",
+          "नमस्ते",
+          "namaskar",
+          "vanakkam",
+          "வணக்கம்",
+          "నమస్తే",
+          "नमस्कार",
+          "নমস্কার",
+          "ਸਤ ਸ੍ਰੀ ਅਕਾਲ",
+          "kumusta",
+          "selamat pagi",
+          "apa kabar",
+          "sawasdee",
+          "สวัสดี",
+          "sabadee",
+          "ສະບາຍດີ",
+          "choum reap suor",
+          "ជំរាបសួរ",
+          "mingalaba",
+          "မင်္ဂလာပါ",
+          "tashi delek",
+          "བཀྲ་ཤིས་བདེ་ལེགས",
+          "kuzu zangpo",
+          "ཨ་མེ་མི་ཁོ",
+          "hallo",
+          "halo",
+
+          // 🌍 East Asia
+          "ni hao",
+          "你好",
+          "您好",
+          "你好嗎",
+          "konnichiwa",
+          "こんにちは",
+          "もしもし",
+          "annyeonghaseyo",
+          "안녕하세요",
+          "안녕",
+          "sain baina uu",
+
+          // 🌍 Europe
+          "hello",
+          "hola",
+          "bonjour",
+          "hallo",
+          "ciao",
+          "olá",
+          "privet",
+          "привет",
+          "czesc",
+          "ahoj",
+          "dobry den",
+          "szia",
+          "buna",
+          "zdravo",
+          "zdravey",
+          "yassas",
+          "selam",
+          "cau",
+          "tere",
+          "labas",
+          "sveiki",
+          "halló",
+          "hei",
+          "hej",
+          "hoi",
+          "bonjourno",
+          "grüezi",
+          "servus",
+          "salut",
+
+          // 🌍 Americas & Caribbean
+          "aloha",
+          "ola",
+          "bom dia",
+          "saludos",
+          "que tal",
+          "buenas",
+          "ola k ase",
+          "chevere",
+
+          // 🌍 Pacific & Oceania
+          "kia ora",
+          "kia orana",
+          "talofa",
+          "bula",
+          "halo",
+          "kam na mauri",
+          "ia orana",
+          "malo e lelei",
+          "hafa adai",
+          "g'day",
+          "gidday",
+
+          // 🌍 Extra world/Indigenous
+          "sawubona",
+          "mabuhay",
+          "bula vinaka",
+          "talofa lava",
+          "howzit",
+          "namaskar",
+          "malo",
+          "hola ke aloha",
+
+          // 🌏 Additional Asian Scripts (to show diversity)
+          "हैलो", // Hindi (hello in Devanagari)
+          "হ্যালো", // Bengali hello
+          "नमस्कार", // Marathi
+          "నమస్కారం", // Telugu alt
+          "നമസ്കാരം", // Malayalam
+          "สวัสดีครับ", // Thai polite
+          "សួស្តី", // Khmer informal
+          "こんにちは！", // Japanese casual
+          "おはよう", // Japanese good morning
+          "晚上好", // Chinese good evening
+          "안녕하십니까", // Korean formal
+          "こんにちは〜", // Japanese friendly
+          "ສະບາຍດີທຸກຄົນ", // Lao "hello everyone"
+          "မင်္ဂလာနံနက်ခင်းပါ", // Burmese good morning
+          "שלום עליכם", // Hebrew long
+          "مرحبا بكم", // Arabic formal
+          "سلام دوست", // Persian "hello friend"
+        ],
+
+        line: "",
+        init() {
+          // Shuffle once so order changes each page load
+          this.greetings = this.shuffle(this.greetings);
+          this.line = this.greetings
+            .map((g) => g.toLowerCase())
+            .join("   •   ");
+        },
+
+        shuffle(arr) {
+          let array = arr.slice();
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+          }
+          return array;
+        },
+      };
+    }
+  </script>
+
+  <div class="w-full py-18 bg-white">
+    <h1 class="text-center text-3xl font-stretch-expanded">
+      Site Architecture
+    </h1>
+    <p class="text-center text-xl text-slate-600">
+      Built on Tailwind and Alpine on Tuesday 16th, 2025
+    </p>
+    <div class="flex flex-row justify-evenly items-center pt-2 my-12">
+      <img src="tailwindcss-logotype.svg" class="h-8 hover:scale-120 transition-transform duration-300" alt="" />
+      <img src="https://alpinejs.dev/alpine_long.svg" class="h-8 hover:scale-120 transition-transform duration-300"
+        alt="" />
+    </div>
+  </div>
+  <footer class="w-full flex flex-row justify-end items-center py-2 px-12 shadow-2xl/30 bg-gray-900">
+    <ul>
+      <p class="text-sm font-stretch-expanded text-sky-50">
+        developed by abhirv jatar
+      </p>
+    </ul>
+  </footer>
+</body>
+
 </html>
