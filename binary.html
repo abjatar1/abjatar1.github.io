@@ -4,27 +4,157 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <title>Abhirv Jatar - Portfolio</title>
+    <title>Abhirv Jatar - Portfolio — Binary</title>
   </head>
-  <body>
+  <body class="bg-white text-slate-900">
     <script src="//unpkg.com/alpinejs" defer></script>
+
+    <!-- Header -->
     <header class="sticky z-10 top-0 w-full flex flex-row justify-between items-center py-5 px-12 shadow-2xl/30 bg-white">
       <p class="text-2xl font-stretch-expanded hover:scale-120 transition-transform duration-300">abhirv jatar</p>
       <ul class="flex flex-row justify-center items-center">
-        <div class="hover:scale-120 transition-transform duration-300"><a href="index.html" class="bg-sky-600 shadow-2xl/30 shadow-slate-800 py-2 px-5 rounded-lg text-sky-50 border-2 ml-6 hover:border-sky-600 hover:bg-sky-50 hover:text-sky-900">Home</a></div>
-        <div class="hover:scale-120 transition-transform duration-300"><a href="projects.html" class="bg-sky-600 shadow-2xl/30 shadow-slate-800 py-2 px-5 rounded-lg text-sky-50 border-2 ml-6 hover:border-sky-600 hover:bg-sky-50 hover:text-sky-900">Projects</a></div>
-        <div class="hover:scale-120 transition-transform duration-300"><a href="binary.html" class="bg-sky-600 shadow-2xl/30 shadow-slate-800 py-2 px-5 rounded-lg text-sky-50 border-2 ml-6 hover:border-sky-600 hover:bg-sky-50 hover:text-sky-900">Binary</a></div>
+        <div class="hover:scale-120 transition-transform duration-300">
+          <a href="index.html" class="bg-sky-600 shadow-2xl/30 shadow-slate-800 py-2 px-5 rounded-lg text-sky-50 border-2 ml-6 hover:border-sky-600 hover:bg-sky-50 hover:text-sky-900">Home</a>
+        </div>
+        <div class="hover:scale-120 transition-transform duration-300">
+          <a href="projects.html" class="bg-sky-600 shadow-2xl/30 shadow-slate-800 py-2 px-5 rounded-lg text-sky-50 border-2 ml-6 hover:border-sky-600 hover:bg-sky-50 hover:text-sky-900">Projects</a>
+        </div>
+        <div class="hover:scale-120 transition-transform duration-300">
+          <a href="binary.html" class="bg-sky-600 shadow-2xl/30 shadow-slate-800 py-2 px-5 rounded-lg text-sky-50 border-2 ml-6 hover:border-sky-600 hover:bg-sky-50 hover:text-sky-900">Binary</a>
+        </div>
       </ul>
     </header>
+
+    <!-- Hero -->
     <div class="w-full py-36 bg-sky-900 pl-24 shadow-slate-800 shadow-2xl/30">
       <h1 class="text-7xl text-sky-100 text-left font-semibold font-stretch-expanded mb-2">Binary</h1>
       <h2 class="text-3xl text-sky-100 text-left">Binary demonstrations.</h2>
     </div>
-   
+
+    <!-- Base Converter -->
+    <main class="px-6 md:px-12 lg:px-24 py-12" x-data="baseConverter()">
+      <div class="max-w-5xl mx-auto">
+        <div class="rounded-2xl border-2 border-slate-200 shadow-lg overflow-hidden">
+          <div class="bg-sky-600 px-6 py-4 border-b border-slate-200 shadow-lg">
+            <h3 class="text-2xl text-sky-50 font-stretch-expanded">Base Converter</h3>
+            <p class="text-sky-200">Type in any box. Others update live, but the box you’re typing in is protected.</p>
+          </div>
+
+          <div class="p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <template x-for="field in fields" :key="field.key">
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2" x-text="field.label"></label>
+                <div class="flex gap-2">
+                  <input
+                    :placeholder="field.placeholder"
+                    class="flex-1 rounded-xl border-2 border-slate-300 focus:outline-none focus:ring-4 focus:ring-sky-200 focus:border-sky-500 px-4 py-3 font-mono text-base uppercase"
+                    x-model="field.value"
+                    @focus="editingKey = field.key"
+                    @input="from(field.key)"
+                    @blur="editingKey = null"
+                  />
+                  <button type="button" class="px-4 py-3 rounded-xl border-2 border-slate-300 hover:bg-slate-100"
+                          @click="copy(field.value)">Copy</button>
+                </div>
+                <p class="mt-1 text-sm text-rose-600" x-show="errors[field.key]" x-text="errors[field.key]"></p>
+              </div>
+            </template>
+
+            <!-- Custom base -->
+            <div class="lg:col-span-2">
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Custom Base</label>
+              <div class="flex gap-2">
+                <input
+                  x-model.number="customBase"
+                  placeholder="Base (2–36)"
+                  class="w-32 rounded-xl border-2 border-slate-300 focus:outline-none focus:ring-4 focus:ring-sky-200 focus:border-sky-500 px-3 py-3 font-mono text-base"
+                />
+                <input
+                  x-model="customValue"
+                  @focus="editingKey = 'custom'"
+                  @input="from('custom')"
+                  @blur="editingKey = null"
+                  placeholder="Number in that base"
+                  class="flex-1 rounded-xl border-2 border-slate-300 focus:outline-none focus:ring-4 focus:ring-sky-200 focus:border-sky-500 px-4 py-3 font-mono text-base uppercase"
+                />
+              </div>
+              <p class="mt-1 text-sm text-rose-600" x-show="errors.custom" x-text="errors.custom"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
     <footer class="mt-12 w-full flex flex-row justify-end items-center py-2 px-12 shadow-2xl/30 bg-gray-900">
       <ul>
         <p class="text-sm font-stretch-expanded text-sky-50">developed by abhirv jatar</p>
       </ul>
     </footer>
+
+    <!-- Inline JS -->
+    <script>
+      function baseConverter() {
+        return {
+          fields: [
+            { key: "bin", label: "Binary (base 2)", placeholder: "e.g. 1011", value: "" },
+            { key: "oct", label: "Octal (base 8)", placeholder: "e.g. 57", value: "" },
+            { key: "dec", label: "Decimal (base 10)", placeholder: "e.g. 42", value: "" },
+            { key: "hex", label: "Hex (base 16)", placeholder: "e.g. 2A", value: "" }
+          ],
+          customBase: "",
+          customValue: "",
+          errors: {},
+          editingKey: null,
+
+          copy(text) {
+            if (text) navigator.clipboard.writeText(text);
+          },
+
+          from(which) {
+            try {
+              this.errors = {};
+              let n;
+
+              if (which === "custom") {
+                if (!this.customBase || this.customBase < 2 || this.customBase > 36) {
+                  this.errors.custom = "Enter a valid base between 2 and 36.";
+                  return;
+                }
+                n = this.toBigInt(this.customValue, this.customBase);
+              } else {
+                const f = this.fields.find(f => f.key === which);
+                const base = { bin: 2, oct: 8, dec: 10, hex: 16 }[which];
+                n = this.toBigInt(f.value, base);
+              }
+
+              this.updateAll(n, which);
+            } catch (e) {
+              this.errors[which] = e.message || "Invalid input";
+            }
+          },
+
+          updateAll(n, exceptKey) {
+            if (exceptKey !== "bin" && this.editingKey !== "bin")
+              this.fields.find(f => f.key === "bin").value = n.toString(2);
+            if (exceptKey !== "oct" && this.editingKey !== "oct")
+              this.fields.find(f => f.key === "oct").value = n.toString(8);
+            if (exceptKey !== "dec" && this.editingKey !== "dec")
+              this.fields.find(f => f.key === "dec").value = n.toString(10);
+            if (exceptKey !== "hex" && this.editingKey !== "hex")
+              this.fields.find(f => f.key === "hex").value = n.toString(16).toUpperCase();
+
+            if (this.customBase >= 2 && this.customBase <= 36 && this.editingKey !== "custom") {
+              this.customValue = n.toString(this.customBase).toUpperCase();
+            }
+          },
+
+          toBigInt(str, base) {
+            if (!str) return 0n;
+            return BigInt(parseInt(str, base));
+          }
+        };
+      }
+    </script>
   </body>
 </html>
