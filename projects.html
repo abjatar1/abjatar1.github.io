@@ -1,78 +1,175 @@
 <!DOCTYPE html>
-<html class="scroll-smooth">
+<html class="scroll-smooth" lang="en" x-data="portfolioApp()">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
     <title>Abhirv Jatar - Portfolio</title>
   </head>
-  <body>
-    <script src="//unpkg.com/alpinejs" defer></script>
+  <body class="bg-gray-50">
+    <!-- Header -->
     <header class="sticky z-10 top-0 w-full flex flex-row justify-between items-center py-5 px-12 shadow-2xl/30 bg-white">
       <p class="text-2xl font-stretch-expanded hover:scale-120 transition-transform duration-300">abhirv jatar</p>
       <ul class="flex flex-row justify-center items-center">
-        <div class="hover:scale-120 transition-transform duration-300"><a href="index.html" class="bg-sky-600 shadow-2xl/30 shadow-slate-800 py-2 px-5 rounded-lg text-sky-50 border-2 ml-6 hover:border-sky-600 hover:bg-sky-50 hover:text-sky-900">Home</a></div>
-        <div class="hover:scale-120 transition-transform duration-300"><a href="projects.html" class="bg-sky-600 shadow-2xl/30 shadow-slate-800 py-2 px-5 rounded-lg text-sky-50 border-2 ml-6 hover:border-sky-600 hover:bg-sky-50 hover:text-sky-900">Projects</a></div>
-        <div class="hover:scale-120 transition-transform duration-300"><a href="binary.html" class="bg-sky-600 shadow-2xl/30 shadow-slate-800 py-2 px-5 rounded-lg text-sky-50 border-2 ml-6 hover:border-sky-600 hover:bg-sky-50 hover:text-sky-900">Binary</a></div>
+        <div class="hover:scale-120 transition-transform duration-300">
+          <a href="index.html" class="bg-sky-600 shadow-2xl/30 shadow-slate-800 py-2 px-5 rounded-lg text-sky-50 border-2 ml-6 hover:border-sky-600 hover:bg-sky-50 hover:text-sky-900">Home</a>
+        </div>
+        <div class="hover:scale-120 transition-transform duration-300">
+          <a href="projects.html" class="bg-sky-600 shadow-2xl/30 shadow-slate-800 py-2 px-5 rounded-lg text-sky-50 border-2 ml-6 hover:border-sky-600 hover:bg-sky-50 hover:text-sky-900">Projects</a>
+        </div>
+        <div class="hover:scale-120 transition-transform duration-300">
+          <a href="binary.html" class="bg-sky-600 shadow-2xl/30 shadow-slate-800 py-2 px-5 rounded-lg text-sky-50 border-2 ml-6 hover:border-sky-600 hover:bg-sky-50 hover:text-sky-900">Binary</a>
+        </div>
       </ul>
     </header>
+
+    <!-- Hero -->
     <div class="w-full py-36 bg-sky-900 pl-24 shadow-slate-800 shadow-2xl/30">
       <h1 class="text-7xl text-sky-100 text-left font-semibold font-stretch-expanded mb-2">Projects</h1>
-      <h2 class="text-3xl text-sky-100 text-left">School comp sci-projects.</h2>
+      <h2 class="text-3xl text-sky-100 text-left">School comp sci projects.</h2>
     </div>
+
+    <!-- Projects Grid -->
     <div class="w-full pt-6 bg-white">
+      <!-- First row -->
       <div class="flex flex-row justify-center items-center py-4 my-12 px-12">
-        <div class="hover:scale-120 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-slate-300 border-double ">
-            <h1 class="text-center text-3xl font-stretch-expanded">Space Invaders</h1>
-            <p class="text-center text-xl text-slate-600">simple space invaders game</p>
-        </div>
-        <div class="hover:scale-120 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-slate-300 border-double ">
-            <h1 class="text-center text-3xl font-stretch-expanded">Collapser</h1>
-            <p class="text-center text-xl text-slate-600">brick breaking game</p>
-        </div>
-        <div class="hover:scale-120 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-slate-300 border-double ">
-            <h1 class="text-center text-3xl font-stretch-expanded">Spaceshot</h1>
-            <p class="text-center text-xl text-slate-600">asteroid lancing game</p>
-        </div>
+        <template x-for="project in projects.slice(0,3)" :key="project.title">
+          <div 
+            @click="openProject(project)" 
+            class="hover:scale-105 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-slate-300 border-double cursor-pointer"
+          >
+            <h1 class="text-center text-3xl font-stretch-expanded" x-text="project.title"></h1>
+            <p class="text-center text-xl text-slate-600" x-text="project.short"></p>
+          </div>
+        </template>
+      </div>
+
+      <!-- Second row -->
+      <div class="flex flex-row justify-center items-center py-4 my-12 px-12">
+        <template x-for="project in projects.slice(3,6)" :key="project.title">
+          <div 
+            @click="openProject(project)" 
+            class="hover:scale-105 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-slate-300 border-double cursor-pointer"
+          >
+            <h1 class="text-center text-3xl font-stretch-expanded" x-text="project.title"></h1>
+            <p class="text-center text-xl text-slate-600" x-text="project.short"></p>
+          </div>
+        </template>
+      </div>
+
+      <!-- Third row -->
+      <div class="flex flex-row justify-center items-center py-4 my-12 px-12">
+        <template x-for="project in projects.slice(6,9)" :key="project.title">
+          <div 
+            @click="openProject(project)" 
+            class="hover:scale-105 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-slate-300 border-double cursor-pointer"
+          >
+            <h1 class="text-center text-3xl font-stretch-expanded" x-text="project.title"></h1>
+            <p class="text-center text-xl text-slate-600" x-text="project.short"></p>
+          </div>
+        </template>
       </div>
     </div>
-    <div class="w-full bg-white">
-      <div class="flex flex-row justify-center items-center py-4 my-12 px-12">
-        <div class="hover:scale-120 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-slate-300 border-double ">
-            <h1 class="text-center text-3xl font-stretch-expanded">Snake</h1>
-            <p class="text-center text-xl text-slate-600">simple snake game</p>
-        </div>
-        <div class="hover:scale-120 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-slate-300 border-double ">
-            <h1 class="text-center text-3xl font-stretch-expanded">PROGRADE</h1>
-            <p class="text-center text-xl text-slate-600">space management colony game</p>
-        </div>
-        <div class="hover:scale-120 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-slate-300 border-double ">
-            <h1 class="text-center text-3xl font-stretch-expanded">Breakfast Bash</h1>
-            <p class="text-center text-xl text-slate-600">pong game with modes</p>
-        </div>
-      </div>
-    </div>
-    <div class="w-full bg-white">
-      <div class="flex flex-row justify-center items-center py-4 my-12 px-12">
-        <div class="hover:scale-120 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-slate-300 border-double ">
-            <h1 class="text-center text-3xl font-stretch-expanded">Lights-Out</h1>
-            <p class="text-center text-xl text-slate-600">simple puzzle game</p>
-        </div>
-        <div class="hover:scale-120 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-slate-300 border-double ">
-            <h1 class="text-center text-3xl font-stretch-expanded">Minesweeper</h1>
-            <p class="text-center text-xl text-slate-600">simple minesweeper game</p>
-        </div>
-        <div class="hover:scale-120 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-slate-300 border-double ">
-            <h1 class="text-center text-3xl font-stretch-expanded">ArraySmasher</h1>
-            <p class="text-center text-xl text-slate-600">entropy grid game built on 2d arrays</p>
-        </div>
-      </div>
-    </div>
+
     <p class="text-center text-xl text-slate-600">There are much more but I can't remember them.</p>
+
+    <!-- Footer -->
     <footer class="mt-12 w-full flex flex-row justify-end items-center py-2 px-12 shadow-2xl/30 bg-gray-900">
-      <ul>
-        <p class="text-sm font-stretch-expanded text-sky-50">developed by abhirv jatar</p>
-      </ul>
+      <p class="text-sm font-stretch-expanded text-sky-50">developed by abhirv jatar</p>
     </footer>
+
+    <!-- Modal -->
+    <div 
+      x-show="modalOpen" 
+      class="fixed inset-0 z-50 flex justify-center items-center px-4"
+      x-cloak
+    >
+      <!-- Background overlay -->
+      <div 
+        x-show="modalOpen" 
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="absolute inset-0 bg-black bg-opacity-60"
+        @click="modalOpen = false"
+      ></div>
+
+      <!-- Modal -->
+      <div 
+        x-show="modalOpen" 
+        x-transition:enter="transition transform ease-out duration-300"
+        x-transition:enter-start="opacity-0 scale-90"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition transform ease-in duration-200"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-90"
+        class="relative bg-white rounded-2xl shadow-2xl border border-slate-200 w-[40rem] max-w-full z-10 flex flex-col overflow-hidden"
+      >
+        <!-- Close button -->
+        <button 
+          @click="modalOpen = false" 
+          class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl"
+        >✖</button>
+
+        <!-- Image -->
+        <div class="w-full h-64 bg-gray-100 flex items-center justify-center overflow-hidden">
+          <img 
+            :src="activeProject?.image" 
+            alt="" 
+            class="object-cover w-full h-full"
+            x-show="activeProject?.image"
+          >
+          <!-- Placeholder -->
+          <div 
+            class="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-gray-500 text-lg"
+            x-show="!activeProject?.image"
+          >
+            No image available
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="p-8 flex flex-col space-y-6">
+          <h2 class="text-3xl font-bold text-gray-900" x-text="activeProject?.title"></h2>
+          <p class="text-gray-700 text-lg leading-relaxed" x-text="activeProject?.description"></p>
+          <a 
+            :href="activeProject?.link" 
+            target="_blank" 
+            class="inline-block bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition"
+          >
+            Play Project
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alpine Data -->
+    <script>
+      function portfolioApp() {
+        return {
+          modalOpen: false,
+          activeProject: null,
+          projects: [
+            { title: "Space Invaders", short: "simple space invaders game", image: "images/spaceinvaders.png", description: "A simple clone of the classic arcade game.", link: "projects/spaceinvaders/index.html" },
+            { title: "Collapser", short: "brick breaking game", image: "images/collapser.png", description: "Break bricks and rack up points.", link: "projects/collapser/index.html" },
+            { title: "Spaceshot", short: "asteroid lancing game", image: "images/spaceshot.png", description: "Shoot asteroids in this fast-paced action game.", link: "projects/spaceshot/index.html" },
+            { title: "Snake", short: "simple snake game", image: "images/snake.png", description: "Classic snake game with a modern twist.", link: "projects/snake/index.html" },
+            { title: "PROGRADE", short: "space colony game", image: "images/prograde.png", description: "Manage your colony among the stars.", link: "projects/prograde/index.html" },
+            { title: "Breakfast Bash", short: "pong game with modes", image: "images/breakfast.png", description: "Pong with fun breakfast-themed twists.", link: "projects/breakfast/index.html" },
+            { title: "Lights-Out", short: "simple puzzle game", image: "images/lightsout.png", description: "A fun puzzle about toggling lights.", link: "projects/lightsout/index.html" },
+            { title: "Minesweeper", short: "simple minesweeper game", image: "images/minesweeper.png", description: "Classic minesweeper with a clean design.", link: "projects/minesweeper/index.html" },
+            { title: "ArraySmasher", short: "entropy grid game", image: "images/arraysmasher.png", description: "Play with entropy using 2D arrays.", link: "projects/arraysmasher/index.html" }
+          ],
+          openProject(project) {
+            this.activeProject = project;
+            this.modalOpen = true;
+          }
+        };
+      }
+    </script>
   </body>
 </html>
