@@ -27,7 +27,7 @@
     <!-- Hero -->
     <div class="w-full py-36 bg-sky-900 pl-24 shadow-slate-800 shadow-2xl/30">
       <h1 class="text-7xl text-sky-100 text-left font-semibold font-stretch-expanded mb-2">Projects</h1>
-      <h2 class="text-3xl text-sky-100 text-left">School comp sci projects.</h2>
+      <h2 class="text-3xl text-sky-100 text-left">school comp sci projects.</h2>
     </div>
 
     <!-- Projects Grid -->
@@ -37,7 +37,10 @@
         <template x-for="project in projects.slice(0,3)" :key="project.title">
           <div 
             @click="openProject(project)" 
-            class="hover:scale-105 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-slate-300 border-double cursor-pointer"
+            :class="[
+              'hover:scale-105 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-double cursor-pointer',
+              project.image ? 'border-slate-600' : 'border-slate-300'
+            ]"
           >
             <h1 class="text-center text-3xl font-stretch-expanded" x-text="project.title"></h1>
             <p class="text-center text-xl text-slate-600" x-text="project.short"></p>
@@ -50,7 +53,10 @@
         <template x-for="project in projects.slice(3,6)" :key="project.title">
           <div 
             @click="openProject(project)" 
-            class="hover:scale-105 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-slate-300 border-double cursor-pointer"
+            :class="[
+              'hover:scale-105 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-double cursor-pointer',
+              project.image ? 'border-slate-600' : 'border-slate-300'
+            ]"
           >
             <h1 class="text-center text-3xl font-stretch-expanded" x-text="project.title"></h1>
             <p class="text-center text-xl text-slate-600" x-text="project.short"></p>
@@ -63,7 +69,10 @@
         <template x-for="project in projects.slice(6,9)" :key="project.title">
           <div 
             @click="openProject(project)" 
-            class="hover:scale-105 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-slate-300 border-double cursor-pointer"
+            :class="[
+              'hover:scale-105 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-double cursor-pointer',
+              project.image ? 'border-slate-600' : 'border-slate-300'
+            ]"
           >
             <h1 class="text-center text-3xl font-stretch-expanded" x-text="project.title"></h1>
             <p class="text-center text-xl text-slate-600" x-text="project.short"></p>
@@ -72,7 +81,7 @@
       </div>
     </div>
 
-    <p class="text-center text-xl text-slate-600">There are much more but I can't remember them.</p>
+    <p class="text-center text-xl text-slate-600">There are more but I can't remember them.</p>
 
     <!-- Footer -->
     <footer class="mt-12 w-full flex flex-row justify-end items-center py-2 px-12 shadow-2xl/30 bg-gray-900">
@@ -128,7 +137,7 @@
             class="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-gray-500 text-lg"
             x-show="!activeProject?.image"
           >
-            No image available
+            An image is not availible for this project.
           </div>
         </div>
 
@@ -154,15 +163,15 @@
           modalOpen: false,
           activeProject: null,
           projects: [
-            { title: "Space Invaders", short: "simple space invaders game", image: "images/spaceinvaders.png", description: "A simple clone of the classic arcade game.", link: "projects/spaceinvaders/index.html" },
-            { title: "Collapser", short: "brick breaking game", image: "images/collapser.png", description: "Break bricks and rack up points.", link: "projects/collapser/index.html" },
-            { title: "Spaceshot", short: "asteroid lancing game", image: "images/spaceshot.png", description: "Shoot asteroids in this fast-paced action game.", link: "projects/spaceshot/index.html" },
-            { title: "Snake", short: "simple snake game", image: "images/snake.png", description: "Classic snake game with a modern twist.", link: "projects/snake/index.html" },
-            { title: "PROGRADE", short: "space colony game", image: "images/prograde.png", description: "Manage your colony among the stars.", link: "projects/prograde/index.html" },
-            { title: "Breakfast Bash", short: "pong game with modes", image: "images/breakfast.png", description: "Pong with fun breakfast-themed twists.", link: "projects/breakfast/index.html" },
-            { title: "Lights-Out", short: "simple puzzle game", image: "images/lightsout.png", description: "A fun puzzle about toggling lights.", link: "projects/lightsout/index.html" },
-            { title: "Minesweeper", short: "simple minesweeper game", image: "images/minesweeper.png", description: "Classic minesweeper with a clean design.", link: "projects/minesweeper/index.html" },
-            { title: "ArraySmasher", short: "entropy grid game", image: "images/arraysmasher.png", description: "Play with entropy using 2D arrays.", link: "projects/arraysmasher/index.html" }
+            { title: "Spaceshot", short: "space lancing game", image: "https://images2.imgbox.com/ba/b8/TXscfxwQ_o.png", description: "Shoot asteroids in this fast-paced action game.", link: "projects/spaceshot/index.html" },
+            { title: "Snake", short: "simple snake game", image: "https://images2.imgbox.com/ac/08/Iuvmx8lF_o.png", description: "Classic snake game with a modern twist.", link: "projects/snake/index.html" },
+            { title: "PROGRADE", short: "space colony game", image: "https://lh3.googleusercontent.com/sitesv/AICyYdYKPgTmSan6iXEmAGU_bFVM1r23Cqe3rtm6di1L6fu54ZQ6_yS0XnY-92cQGDNEQxg0vnDGzEpTfB5IDGghX35uPJjlPGSUpq9NsdX_UXPJq_1D-dMZMabTio_NbheLO6U_fvXyx0DkSWeejH52YmDELj1KOzWkF8B4RE-jQkBSp4k0ep1QlQAjDVbBEiJFbQIiEBR0qDtvpY5f-ZfydqXq6auv9ildRIg_LBM=w1280", description: "Manage your colony among the stars.", link: "projects/prograde/index.html" },
+            { title: "Breakfast Bash", short: "pong game with modes", image: "https://images2.imgbox.com/b9/d6/9o9ZHi0J_o.png", description: "Pong with fun breakfast-themed twists.", link: "projects/breakfast/index.html" },
+            { title: "Space Invaders", short: "simple space invaders game", image: "", description: "A simple clone of the classic arcade game.", link: "projects/spaceinvaders/index.html" },
+            { title: "Collapser", short: "brick breaking game", image: "", description: "Break bricks and rack up points.", link: "projects/collapser/index.html" },
+            { title: "Lights-Out", short: "simple puzzle game", image: "", description: "A fun puzzle about toggling lights.", link: "projects/lightsout/index.html" },
+            { title: "Minesweeper", short: "simple minesweeper game", image: "", description: "Classic minesweeper with a clean design.", link: "projects/minesweeper/index.html" },
+            { title: "ArraySmasher", short: "entropy grid game", image: "", description: "Play with entropy using 2D arrays.", link: "projects/arraysmasher/index.html" }
           ],
           openProject(project) {
             this.activeProject = project;
