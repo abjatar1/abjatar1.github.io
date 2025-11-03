@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spaceshot 2 — Project Detail</title>
+  <meta name="description" content="Spaceshot 2: Expanse-inspired Newtonian space shooter with railguns, torpedoes, and PDC interception." />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://unpkg.com/alpinejs" defer></script>
+  <style>
+    .prose p { line-height: 1.65; }
+    pre, code { white-space: pre; font-size: 0.85rem; }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-slate-900 selection:bg-sky-200">
+  <header class="sticky top-0 z-10 bg-white/95 backdrop-blur shadow">
+    <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+      <p class="text-xl md:text-2xl font-semibold tracking-tight">abhirv jatar</p>
+      <nav class="flex gap-3">
+        <a href="../../index.html" class="rounded-lg border-2 px-4 py-2 bg-sky-600 text-white hover:bg-white hover:text-slate-900 hover:border-sky-600 transition">Home</a>
+        <a href="../../projects.html" class="rounded-lg border-2 px-4 py-2 bg-sky-600 text-white hover:bg-white hover:text-slate-900 hover:border-sky-600 transition">Projects</a>
+        <a href="../../binary.html" class="rounded-lg border-2 px-4 py-2 bg-sky-600 text-white hover:bg-white hover:text-slate-900 hover:border-sky-600 transition">Binary</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="bg-gradient-to-b from-sky-900 to-slate-900 text-sky-100 py-24 md:py-32">
+    <div class="mx-auto max-w-7xl px-6">
+      <h1 class="text-5xl md:text-7xl font-semibold">Spaceshot&nbsp;2</h1>
+      <p class="mt-3 text-xl md:text-2xl text-sky-200">Expanse-style Newtonian space shooter</p>
+      <div class="mt-6 flex flex-wrap items-center gap-2">
+        <span class="rounded-full border border-sky-400/50 bg-sky-500/20 px-3 py-1 text-sm">PyGame / Python</span>
+        <span class="rounded-full border border-sky-400/50 bg-sky-500/20 px-3 py-1 text-sm">Arduino / C++</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="mx-auto max-w-7xl px-6 py-12 space-y-12">
+    <div class="grid gap-8 md:grid-cols-2">
+      <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm prose">
+        <h2 class="text-2xl font-semibold mb-2">Overview</h2>
+        <p>
+          <strong>Spaceshot&nbsp;2</strong> is a brutal, Expanse-inspired Newtonian dogfighter.
+          Pure drift. RCS burns. No arcade dampers. Charge and release railguns and torpedoes,
+          point-defense cannons intercept incoming threats and flip offensive at knife-fight range.
+        </p>
+      </section>
+
+      <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 class="text-2xl font-semibold mb-3">Highlights</h2>
+        <ul class="grid grid-cols-1 gap-2 text-slate-700 list-disc list-inside">
+          <li>Newtonian acceleration, drift, thrust vectoring</li>
+          <li>PDC interception logic → offensive behavior up close</li>
+          <li>Railguns & torpedoes: charge → release → recoil</li>
+          <li>Joystick-input first gameplay</li>
+          <li>Wave escalation, smarter aim and timing</li>
+          <li>Simulation-first architecture</li>
+        </ul>
+      </section>
+    </div>
+
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 class="text-2xl font-semibold mb-4">Images</h2>
+      <div class="mx-auto grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-3">
+        <figure class="aspect-video overflow-hidden rounded-xl border bg-slate-100">
+          <img src="./shot-1.png" alt="Screenshot 1" class="h-full w-full object-cover" />
+        </figure>
+        <figure class="aspect-video overflow-hidden rounded-xl border bg-slate-100">
+          <img src="./shot-2.png" alt="Screenshot 2" class="h-full w-full object-cover" />
+        </figure>
+        <figure class="aspect-video overflow-hidden rounded-xl border bg-slate-100">
+          <img src="./shot-3.png" alt="Screenshot 3" class="h-full w-full object-cover" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 class="text-2xl font-semibold mb-3">Gameplay Loop</h2>
+      <ol class="list-decimal list-inside space-y-2 text-slate-700">
+        <li>Spawn into open space, relative vectors matter.</li>
+        <li>Burn, drift, trim velocity — no magic dampers.</li>
+        <li>Charge railgun/torpedo → depress → release shot.</li>
+        <li>PDCs track and intercept; close-range flip to kill.</li>
+        <li>Clear wave → enemies scale & adapt.</li>
+      </ol>
+    </section>
+
+    <section x-data="{tab:'python'}" class="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+      <div class="flex items-center gap-2 bg-slate-900 px-6 py-4">
+        <h3 class="text-xl text-white">Code</h3>
+        <div class="ml-auto flex gap-2">
+          <button :class="tab==='python' ? 'px-3 py-1 rounded bg-sky-600 text-white' : 'px-3 py-1 rounded bg-slate-200 hover:bg-slate-300'" @click="tab='python'">Python (PyGame)</button>
+          <button :class="tab==='arduino' ? 'px-3 py-1 rounded bg-sky-600 text-white' : 'px-3 py-1 rounded bg-slate-200 hover:bg-slate-300'" @click="tab='arduino'">Arduino / C++</button>
+          <button id="copyBtn" class="px-3 py-1 rounded border border-white/20 text-white/90 hover:bg-white/10">Copy</button>
+        </div>
+      </div>
+      <div class="p-6">
+        <pre x-show="tab==='python'"><code id="code-python">import serial, threading, time, math
+
+# ===== CONFIG =====
+PORT = '/dev/cu.usbmodem101'  # change this to your actual Arduino port
+BAUD = 115200
+TIMEOUT = 0.05
+SMOOTH = 0.25   # smoothing factor (0.0 = raw, 1.0 = frozen)
+DEADZONE = 0.04 # ignore tiny joystick noise
+
+# ===== INTERNAL STATE =====
+_last_x, _last_y, _last_btn = 0.0, 0.0, 0
+_target_x, _target_y = 0.0, 0.0
+_running = True
+
+# ===== SERIAL INIT =====
+ser = serial.Serial(PORT, BAUD, timeout=TIMEOUT)
+time.sleep(2)
+
+# ===== HELPERS =====
+def _clamp(v, a, b): return a if v < a else b if v > b else v
+def _dead(v): return 0.0 if abs(v) < DEADZONE else v
+
+def _square_to_circle(x: float, y: float) -> tuple[float, float]:
+    """Map square [-1,1]×[-1,1] coordinates to inscribed circle (radius 1)."""
+    u = x * math.sqrt(1 - (y * y) / 2)
+    v = y * math.sqrt(1 - (x * x) / 2)
+    return u, v
+
+# ===== THREAD LOOP =====
+def _reader_loop():
+    global _target_x, _target_y, _last_btn, _last_x, _last_y
+    while _running:
+        try:
+            line = ser.readline().decode('utf-8', 'ignore').strip()
+            if not line or line.count(',') < 2:
+                continue
+            xs, ys, bs = line.split(',', 2)
+            rx, ry, btn = int(xs), int(ys), int(bs)
+
+            # normalize from 0–1023 → -1–1
+            nx, ny = (rx - 512) / 512.0, (ry - 512) / 512.0
+            nx, ny = _clamp(nx, -1, 1), _clamp(ny, -1, 1)
+            ny = -ny  # up = forward
+
+            # apply deadzone
+            nx, ny = _dead(nx), _dead(ny)
+
+            # map square → circle
+            nx, ny = _square_to_circle(nx, ny)
+
+            # store targets
+            _target_x, _target_y, _last_btn = nx, ny, btn
+
+            # smoothing
+            _last_x += (_target_x - _last_x) * SMOOTH
+            _last_y += (_target_y - _last_y) * SMOOTH
+        except Exception:
+            time.sleep(0.02)
+
+# ===== THREAD START =====
+_thread = threading.Thread(target=_reader_loop, daemon=True)
+_thread.start()
+
+# ===== API =====
+def get_input():
+    """Returns (x, y, btn)
+    x,y are circular-mapped smoothed floats in [-1,1]; btn is 0/1."""
+    return -_last_x, _last_y, _last_btn
+
+def stop():
+    """Stops the serial reader thread and closes the port."""
+    global _running
+    _running = False
+    time.sleep(0.1)
+    if ser.is_open:
+        ser.close()
+import math
+import random
+import arcade
+
+# --- CONFIG ---
+WINDOW_WIDTH = 1280
+WINDOW_HEIGHT = 720
+WINDOW_TITLE = "SimpleSpace — slew-limited aim (LERP), sharper PDC, missiles, waves"
+
+PLAYER_THRUST = 120
+PLAYER_DAMPING = 0.995
+USE_JOYSTICK = False  # toggle True if you want to use joystick_reader
+
+if USE_JOYSTICK:
+    import joystick_reader
+
+# =========================
+# ====== DAMAGE MODEL =====
+# =========================
+PIERCE_STEEPNESS = 5.0
+PIERCE_FLOOR = 0.05
+PIERCE_CAP = 0.98
+PIERCE_AT_EQUAL = 0.80
+
+_sig_target = (PIERCE_AT_EQUAL - PIERCE_FLOOR) / max(PIERCE_CAP - PIERCE_FLOOR, 1e-9)
+_sig_target = min(max(_sig_target, 1e-6), 1 - 1e-6)
+PIERCE_BIAS = math.log(_sig_target / (1.0 - _sig_target))
+
+DAMAGE_SCALE = 0.001  # J -> HP
+
+def _sigmoid(x: float) -> float:
+    if x >= 0:
+        z = math.exp(-x)
+        return 1.0 / (1.0 + z)
+    else:
+        z = math.exp(x)
+        return z / (1.0 + z)
+
+def pierce_multiplier(pierce: float, armor: float) -> float:
+    armor = max(armor, 1e-6)
+    ratio = pierce / armor
+    s = _sigmoid(PIERCE_STEEPNESS * (ratio - 1.0) + PIERCE_BIAS)
+    return PIERCE_FLOOR + (PIERCE_CAP - PIERCE_FLOOR) * s
+
+
+# =========================
+# ====== ROUND TYPES ======
+# =========================
+class RoundTemplate:
+    __slots__ = ("name", "mass", "pierce", "muzzle_v", "radius", "color")
+    def __init__(self, name, mass, pierce, muzzle_v, radius, color):
+        self.name = name
+        self.mass = mass
+        self.pierce = pierce
+        self.muzzle_v = muzzle_v
+        self.radius = radius
+        self.color = color
+
+PDC_COLOR  = arcade.color.ORANGE_PEEL
+RAIL_COLOR = arcade.color.MEDIUM_PURPLE
+
+# ===== Player / baseline rounds (PDC muzzle v boosted) =====
+ROUND_PDC_40 = RoundTemplate("PDC 40mm", mass=3.0,   pierce=300,  muzzle_v=360.0, radius=2.0, color=PDC_COLOR)
+ROUND_PDC_60 = RoundTemplate("PDC 60mm", mass=4.0,   pierce=500,  muzzle_v=330.0, radius=2.5, color=PDC_COLOR)
+ROUND_RG_S1  = RoundTemplate("Railgun S1", mass=8.0, pierce=500,  muzzle_v=420.0, radius=4.0, color=RAIL_COLOR)
+ROUND_RG_S2  = RoundTemplate("Railgun S2", mass=20., pierce=900,  muzzle_v=520.0, radius=5.0, color=RAIL_COLOR)
+
+# ===== Enemy-nerfed rounds =====
+EN_ROUND_PDC_40 = RoundTemplate("PDC 40mm (EN)", mass=2.4,  pierce=240, muzzle_v=300.0, radius=2.0, color=PDC_COLOR)
+EN_ROUND_PDC_60 = RoundTemplate("PDC 60mm (EN)", mass=3.2,  pierce=400, muzzle_v=270.0, radius=2.5, color=PDC_COLOR)
+EN_ROUND_RG_S1  = RoundTemplate("Railgun S1 (EN)", mass=6.5, pierce=420, muzzle_v=380.0, radius=4.0, color=RAIL_COLOR)
+EN_ROUND_RG_S2  = RoundTemplate("Railgun S2 (EN)", mass=15., pierce=750, muzzle_v=470.0, radius=5.0, color=RAIL_COLOR)
+
+# Enemy nerf knobs
+ENEMY_COOLDOWN_MULT = 1.35
+ENEMY_MAX_EVENTS_PER_FRAME = 1
+ENEMY_PDC_DEF_RADIUS_MULT = 0.75
+ENEMY_AIM_ERR_DEG = 1.2
+
+# =========================
+# ========= MISSILES ======
+# =========================
+MISSILE_DEF_RADIUS = 220.0
+MISSILE_RADIUS = 4.0
+MISSILE_HP = 200.0
+MISSILE_ARMOR = 200.0
+MISSILE_PIERCE = 700.0
+MISSILE_WARHEAD_ENERGY = 4.0e5
+MISSILE_DAMAGE_SCALE = 0.001
+MISSILE_OFFSCREEN_PAD = 16.0
+MISSILE_BULLET_DMG_SCALE = 0.020
+
+# Phases
+MISSILE_FALLOFF_MIN = 0.8
+MISSILE_FALLOFF_MAX = 1.6
+MISSILE_CANCEL_MIN = 0.6
+MISSILE_CANCEL_MAX = 1.2
+MISSILE_CANCEL_ACCEL = 220.0
+
+# After ignition
+MISSILE_ACCEL = 260.0
+MISSILE_MAX_SPEED = 220.0
+MISSILE_LEAD_AHEAD = 0.6
+
+# Wavy dodge
+MISSILE_DODGE_AMP = 80.0
+MISSILE_DODGE_FREQ_MIN = 2.0
+MISSILE_DODGE_FREQ_MAX = 3.2
+
+# =========================
+# ====== PDC AMMO =========
+# =========================
+PLAYER_PDC40_AMMO_CAP = 800
+PLAYER_PDC60_AMMO_CAP = 600
+ENEMY_PDC40_AMMO_CAP = 360
+ENEMY_PDC60_AMMO_CAP = 280
+PDC_AMMO_PER_SHOT = 1
+
+# =========================
+# ====== UTILITIES ========
+# =========================
+PROJECTILE_LIFETIME = 3.6
+MAX_LEAD_ITER = 10
+LEAD_TOLERANCE = 0.05
+MAX_MISSILES = 240
+CLOSE_PDC_FACTOR = 3.5  # offense only if within ~3-4 radii
+
+# Smoothing knobs
+PDC_WAVE_DEG_OFFENSE = 1.4   # tiny weave only for (rare) offensive PDC shots
+PDC_WAVE_FREQ        = 2.0
+
+# Flanking geometry (used in defense)
+PDC_FLANK_ANGLE_MAX_DEG = 28.0
+PDC_FLANK_GAIN          = 0.65
+PDC_FLANK_OFFSET_CAP    = 180.0
+
+def _len(vx, vy): return math.hypot(vx, vy)
+def _norm(vx, vy):
+    m = _len(vx, vy)
+    if m == 0 or not math.isfinite(m): return 1.0, 0.0
+    return vx/m, vy/m
+
+def _wrap_pi(a):
+    while a <= -math.pi: a += 2*math.pi
+    while a >  math.pi:  a -= 2*math.pi
+    return a
+
+def _turn_towards_angle(prev, desired, dt, max_rate_rad_per_s, snap_threshold_rad):
+    """
+    Slew-limited 'lerp':
+      - If error is big (> snap threshold), snap directly (prevents missing fast targets).
+      - Else, clamp delta by max angular rate (deg/s or rad/s style).
+    """
+    err = _wrap_pi(desired - prev)
+    if abs(err) >= snap_threshold_rad:
+        return desired
+    max_step = max_rate_rad_per_s * max(0.0, dt)
+    if err >  max_step: err =  max_step
+    if err < -max_step: err = -max_step
+    return _wrap_pi(prev + err)
+
+def lead_target(shooter_pos, target_pos, target_vel, muzzle_v):
+    sx, sy = shooter_pos
+    tx0, ty0 = target_pos
+    tvx, tvy = target_vel
+    if muzzle_v < 1e-3: return tx0, ty0, 0.0
+    tx, ty = tx0, ty0
+    last_t = 0.0
+    for _ in range(MAX_LEAD_ITER):
+        dx, dy = tx - sx, ty - sy
+        dist = math.hypot(dx, dy)
+        t = dist / muzzle_v
+        px, py = tx0 + tvx * t, ty0 + tvy * t
+        ndx, ndy = px - sx, py - sy
+        ndist = math.hypot(ndx, ndy)
+        new_t = ndist / muzzle_v
+        if abs(new_t - t) < LEAD_TOLERANCE:
+            return px, py, new_t
+        tx, ty = px, py
+        last_t = new_t
+    return tx, ty, last_t
+
+def is_pdc_round(tmpl: RoundTemplate) -> bool:
+    return tmpl in (ROUND_PDC_40, ROUND_PDC_60, EN_ROUND_PDC_40, EN_ROUND_PDC_60)
+
+def is_rail_round(tmpl: RoundTemplate) -> bool:
+    return tmpl in (ROUND_RG_S1, ROUND_RG_S2, EN_ROUND_RG_S1, EN_ROUND_RG_S2)
+
+# =========================
+# ====== PROJECTILES ======
+# =========================
+class KineticRound:
+    __slots__ = ("x","y","vx","vy","mass","pierce","radius","color","life","team","prevx","prevy","is_rail")
+    def __init__(self, x, y, vx, vy, tmpl: RoundTemplate, team: str):
+        self.x, self.y = x, y
+        self.vx, self.vy = vx, vy
+        self.mass = tmpl.mass
+        self.pierce = tmpl.pierce
+        self.radius = tmpl.radius
+        self.color = tmpl.color
+        self.life = PROJECTILE_LIFETIME
+        self.team = team
+        self.prevx, self.prevy = x, y
+        self.is_rail = is_rail_round(tmpl)
+
+    def update(self, dt):
+        self.prevx, self.prevy = self.x, self.y
+        self.x += self.vx * dt
+        self.y += self.vy * dt
+        self.life -= dt
+
+    def alive(self): return self.life > 0
+
+    def kinetic_energy(self):
+        return 0.5 * self.mass * (self.vx*self.vx + self.vy*self.vy)
+
+    def draw(self):
+        if self.is_rail:
+            arcade.draw_circle_filled(self.x, self.y, self.radius+3.0, (210, 180, 255, 90))
+            arcade.draw_circle_filled(self.x, self.y, self.radius+1.5, (180, 140, 255, 140))
+            arcade.draw_circle_filled(self.x, self.y, self.radius,     (255, 230, 255, 255))
+            arcade.draw_line(self.prevx, self.prevy, self.x, self.y, (220, 200, 255, 150), 3)
+        else:
+            arcade.draw_line(self.prevx, self.prevy, self.x, self.y, (255, 200, 60, 170), 2)
+            arcade.draw_circle_filled(self.x, self.y, self.radius+0.8, (255, 220, 120, 200))
+            arcade.draw_circle_filled(self.x, self.y, self.radius, (255, 245, 210, 255))
+
+
+class Missile:
+    """
+    Phases:
+      0 = FALLOFF (engine off)
+      1 = CANCEL  (engine off)
+      2 = BOOST   (engine on)
+    """
+    __slots__ = ("x","y","vx","vy","team","target","hp","radius","color","alive_flag",
+                 "phase","t_phase","falloff_dur","cancel_dur","dodge_freq","dodge_seed")
+
+    def __init__(self, x, y, team, target, init_vx, init_vy):
+        self.x, self.y = x, y
+        self.team = team
+        self.target = target
+        self.hp = MISSILE_HP
+        self.radius = MISSILE_RADIUS
+        self.color = (180, 240, 255) if team == "blue" else (255, 160, 160)
+        self.alive_flag = True
+
+        self.vx = init_vx + random.uniform(-12, 12)
+        self.vy = init_vy + random.uniform(-12, 12)
+
+        self.phase = 0
+        self.t_phase = 0.0
+        self.falloff_dur = random.uniform(MISSILE_FALLOFF_MIN, MISSILE_FALLOFF_MAX)
+        self.cancel_dur  = random.uniform(MISSILE_CANCEL_MIN,  MISSILE_CANCEL_MAX)
+
+        self.dodge_freq = random.uniform(MISSILE_DODGE_FREQ_MIN, MISSILE_DODGE_FREQ_MAX)
+        self.dodge_seed = random.random() * math.tau
+
+    def alive(self): return self.alive_flag and self.hp > 0
+
+    def update(self, dt):
+        if not self.alive(): return
+        self.t_phase += dt
+
+        if self.phase == 0:
+            self.x += self.vx * dt; self.y += self.vy * dt
+            if self.t_phase >= self.falloff_dur:
+                self.phase = 1; self.t_phase = 0.0
+
+        elif self.phase == 1:
+            speed = math.hypot(self.vx, self.vy)
+            if speed > 1e-3:
+                decel = MISSILE_CANCEL_ACCEL * dt
+                k = max(0.0, (speed - decel) / speed)
+                self.vx *= k; self.vy *= k
+            self.x += self.vx * dt; self.y += self.vy * dt
+            if self.t_phase >= self.cancel_dur or math.hypot(self.vx, self.vy) < 15.0:
+                self.phase = 2; self.t_phase = 0.0
+                if self.target is not None and not self.target.is_destroyed():
+                    dx, dy = self.target.x - self.x, self.target.y - self.y
+                    nx, ny = _norm(dx, dy)
+                else:
+                    nx, ny = 1.0, 0.0
+                self.vx += nx * 40.0; self.vy += ny * 40.0
+
+        else:
+            if self.target is not None and not self.target.is_destroyed():
+                tx = self.target.x + self.target.vx * MISSILE_LEAD_AHEAD
+                ty = self.target.y + self.target.vy * MISSILE_LEAD_AHEAD
+                to_x, to_y = tx - self.x, ty - self.y
+                dn_x, dn_y = _norm(to_x, to_y)
+            else:
+                dn_x, dn_y = _norm(self.vx, self.vy)
+
+            ax = dn_x * MISSILE_ACCEL; ay = dn_y * MISSILE_ACCEL
+
+            px, py = -dn_y, dn_x
+            lateral = math.sin(self.dodge_seed + self.t_phase * math.tau * self.dodge_freq)
+            ax += px * MISSILE_DODGE_AMP * lateral
+            ay += py * MISSILE_DODGE_AMP * lateral
+
+            self.vx += ax * dt; self.vy += ay * dt
+
+            sp = math.hypot(self.vx, self.vy)
+            if sp > MISSILE_MAX_SPEED:
+                self.vx *= MISSILE_MAX_SPEED / sp
+                self.vy *= MISSILE_MAX_SPEED / sp
+
+            self.x += self.vx * dt; self.y += self.vy * dt
+
+        if (self.x < -MISSILE_OFFSCREEN_PAD or self.x > WINDOW_WIDTH + MISSILE_OFFSCREEN_PAD or
+            self.y < -MISSILE_OFFSCREEN_PAD or self.y > WINDOW_HEIGHT + MISSILE_OFFSCREEN_PAD):
+            self.alive_flag = False
+
+    def take_bullet(self, bullet_E, bullet_pierce):
+        mult = pierce_multiplier(bullet_pierce, MISSILE_ARMOR)
+        dmg = bullet_E * mult * MISSILE_BULLET_DMG_SCALE
+        self.hp -= max(1.0, dmg)
+
+    def draw(self):
+        if not self.alive(): return
+        if self.phase < 2:
+            arcade.draw_circle_filled(self.x, self.y, self.radius, (200, 200, 210, 220))
+            arcade.draw_line(self.x - self.vx*0.04, self.y - self.vy*0.04, self.x, self.y, (160, 170, 200, 80), 2)
+        else:
+            arcade.draw_circle_filled(self.x, self.y, self.radius, (*self.color[:3], 255))
+            arcade.draw_circle_filled(self.x, self.y, self.radius*0.7, (255, 255, 255, 240))
+            for k in (0.05, 0.09, 0.14):
+                arcade.draw_line(self.x - self.vx*k, self.y - self.vy*k, self.x, self.y, (200, 220, 255, int(160*(1.0-k/0.14))), 2)
+
+
+# =========================
+# ======= EFFECTS =========
+# =========================
+class Explosion:
+    __slots__ = ("x","y","t","duration","base_radius","is_rail")
+    def __init__(self, x, y, is_rail=False):
+        self.x, self.y = x, y
+        self.t = 0.0
+        self.duration = 0.45 if not is_rail else 0.75
+        self.base_radius = 12 if not is_rail else 28
+        self.is_rail = is_rail
+
+    def update(self, dt): self.t += dt
+    def alive(self): return self.t < self.duration
+
+    def draw(self):
+        k = min(1.0, self.t / self.duration)
+        r = self.base_radius * (0.3 + 1.7 * k)
+        alpha = int(230 * (1.0 - k))
+        if self.is_rail:
+            arcade.draw_circle_filled(self.x, self.y, r*0.6, (240, 220, 255, max(0, alpha)))
+            arcade.draw_circle_outline(self.x, self.y, r, (220, 200, 255, max(0, alpha)), 3)
+            arcade.draw_circle_outline(self.x, self.y, r*1.45, (200, 180, 255, max(0, alpha//2)), 2)
+        else:
+            arcade.draw_circle_filled(self.x, self.y, r, (255, 180, 120, max(0, alpha)))
+            arcade.draw_circle_outline(self.x, self.y, r*1.25, (255, 210, 160, max(0, alpha//2)), 2)
+            arcade.draw_circle_outline(self.x, self.y, r*1.6, (255, 210, 160, max(0, alpha//3)), 1)
+
+
+class MuzzleFlash:
+    __slots__ = ("x","y","t","duration","color")
+    def __init__(self, x, y, color):
+        self.x, self.y = x, y
+        self.t = 0.0
+        self.duration = 0.08
+        self.color = color
+    def update(self, dt): self.t += dt
+    def alive(self): return self.t < self.duration
+    def draw(self):
+        k = 1.0 - (self.t / self.duration)
+        r = 9.0 + 10.0 * (1.0 - k)
+        alpha = int(220 * k)
+        arcade.draw_circle_filled(self.x, self.y, r, (*self.color[:3], alpha))
+
+
+# =========================
+# ======= WEAPONS =========
+# =========================
+class Weapon:
+    """
+    Accumulator cadence (dt-proof). Slew-limited 'lerp' aiming:
+      - If angle error > snap threshold => snap immediately (avoid whiffing).
+      - Else turn at max angular rate (rad/s).
+    PDCs:
+      - Defensive by default (with crossing/flank geometry), offense only if very close.
+      - Ammo-limited; minimal spray in defense.
+    Rails:
+      - Smooth but crisp with slew-limit; support dumps for player.
+    """
+    __slots__ = ("name","projectile","cooldown","accum",
+                 "wave_amp_deg","wave_freq_hz","barrels",
+                 "phase_base","barrel_offsets",
+                 "barrels_per_event","barrel_cursor",
+                 "max_events_per_frame",
+                 "def_radius","aim_error_deg",
+                 "ammo_capacity","ammo","ammo_per_shot",
+                 "dump_cap_per_frame",
+                 # aiming
+                 "aim_angle","last_dt",
+                 "max_turn_rate","snap_threshold")
+
+    def __init__(self, name, projectile: RoundTemplate, cooldown: float,
+                 wave_amp_deg: float, wave_freq_hz: float,
+                 barrels: int = 1, barrels_per_event: int = 1,
+                 max_events_per_frame: int = 2,
+                 def_radius: float = None,
+                 aim_error_deg: float = 0.0,
+                 ammo_capacity: int | None = None,
+                 ammo_per_shot: int = 0,
+                 dump_cap_per_frame: int = 24,
+                 max_turn_rate_rad_s: float = 10.0,
+                 snap_threshold_deg: float = 60.0):
+        self.name = name
+        self.projectile = projectile
+        self.cooldown = max(1e-4, cooldown)
+        self.accum = random.uniform(0.0, self.cooldown * 0.8)
+        self.wave_amp_deg = wave_amp_deg
+        self.wave_freq_hz = wave_freq_hz
+        self.barrels = max(1, barrels)
+        self.phase_base = random.random() * math.tau
+        self.barrel_offsets = [i * (math.tau / max(2, self.barrels)) for i in range(self.barrels)]
+        self.barrels_per_event = max(1, min(barrels_per_event, self.barrels))
+        self.barrel_cursor = 0
+        self.max_events_per_frame = max(1, max_events_per_frame)
+        self.def_radius = def_radius if def_radius is not None else MISSILE_DEF_RADIUS
+        self.aim_error_deg = aim_error_deg
+        self.ammo_capacity = ammo_capacity
+        self.ammo = ammo_capacity if ammo_capacity is not None else None
+        self.ammo_per_shot = max(0, ammo_per_shot)
+        self.dump_cap_per_frame = max(1, dump_cap_per_frame)
+
+        self.aim_angle = 0.0
+        self.last_dt = 0.016
+        self.max_turn_rate = max(2.0, max_turn_rate_rad_s)
+        self.snap_threshold = math.radians(max(1.0, snap_threshold_deg))
+
+    def refill(self):
+        if self.ammo_capacity is not None:
+            self.ammo = self.ammo_capacity
+
+    def update(self, dt):
+        self.accum += dt
+        self.phase_base += math.tau * self.wave_freq_hz * dt
+        if self.accum > self.cooldown * 6:
+            self.accum = self.cooldown * 3
+        self.last_dt = dt
+
+    def _is_pdc(self): return is_pdc_round(self.projectile)
+    def _is_rail(self): return is_rail_round(self.projectile)
+
+    def _pick_defense_missile(self, shooter, missiles):
+        if not missiles: return None
+        best = None; best_score = None
+        r2 = self.def_radius * self.def_radius
+        for m in missiles:
+            if not m.alive() or m.team == shooter.team: continue
+            dx, dy = shooter.x - m.x, shooter.y - m.y
+            d2 = dx*dx + dy*dy
+            if d2 > r2: continue
+            closing_dot = dx * m.vx + dy * m.vy  # >0 closing
+            score = (1e12 - d2) + (0.001 * max(0.0, closing_dot))
+            if best is None or score > best_score:
+                best, best_score = m, score
+        return best
+
+    # Defensive flanking aim (same as before)
+    def _defense_flank_aim(self, sx, sy, missile):
+        px, py, tgo = lead_target((sx, sy), (missile.x, missile.y), (missile.vx, missile.vy), self.projectile.muzzle_v)
+        vmx, vmy = missile.vx, missile.vy
+        vm_spd = max(1e-3, math.hypot(vmx, vmy))
+        vm_nx, vm_ny = vmx / vm_spd, vmy / vm_spd
+        lat_x, lat_y = -vm_ny, vm_nx
+        lat_mag = min(PDC_FLANK_OFFSET_CAP, PDC_FLANK_GAIN * vm_spd * max(0.0, tgo))
+        side = -1.0 if (self.barrel_cursor % 2 == 0) else +1.0
+        aim_x = px + side * lat_x * lat_mag
+        aim_y = py + side * lat_y * lat_mag
+        base_ang = math.atan2(py - sy, px - sx)
+        raw_ang  = math.atan2(aim_y - sy, aim_x - sx)
+        d_ang = _wrap_pi(raw_ang - base_ang)
+        d_ang = max(-math.radians(PDC_FLANK_ANGLE_MAX_DEG), min(math.radians(PDC_FLANK_ANGLE_MAX_DEG), d_ang))
+        final_ang = base_ang + d_ang
+        return final_ang, px, py
+
+    def _consume_ammo_for_event(self, shots_needed: int) -> bool:
+        if self.ammo is None:
+            return True
+        need = self.ammo_per_shot * shots_needed
+        if self.ammo < need: return False
+        self.ammo -= need
+        return True
+
+    def _spawn_event_from_angle(self, sx, sy, ang, team, amp_deg=0.0, weave_phase=0.0):
+        rounds, flashes = [], []
+        amp = math.radians(max(0.0, amp_deg))
+        for _ in range(self.barrels_per_event):
+            idx = self.barrel_cursor % self.barrels
+            self.barrel_cursor += 1
+
+            a = ang + amp * math.sin(weave_phase + self.barrel_offsets[idx])
+
+            if self.aim_error_deg > 0.0:
+                a += math.radians(random.uniform(-self.aim_error_deg, self.aim_error_deg))
+
+            vx = math.cos(a) * self.projectile.muzzle_v
+            vy = math.sin(a) * self.projectile.muzzle_v
+            rounds.append(KineticRound(sx, sy, vx, vy, self.projectile, team))
+            flash_col = (255, 220, 180) if self._is_pdc() else (210, 180, 255)
+            flashes.append(MuzzleFlash(sx, sy, flash_col))
+        return rounds, flashes
+
+    def fire_auto(self, shooter, target, allow_offense: bool, missiles=None,
+                  dump: bool = False, pdc_offense_allowed: bool = False):
+        sx, sy = shooter.x, shooter.y
+        events_avail = int(self.accum // self.cooldown)
+        if events_avail <= 0: return [], []
+
+        events_cap = self.dump_cap_per_frame if dump else self.max_events_per_frame
+        events_avail = min(events_avail, events_cap)
+
+        # PDC logic
+        if self._is_pdc():
+            defense_target = self._pick_defense_missile(shooter, missiles or [])
+            want_offense = (allow_offense and pdc_offense_allowed and target is not None)
+            if (defense_target is None) and (not want_offense):
+                return [], []
+
+            rounds, flashes = [], []
+            fired_events = 0
+
+            for _ in range(events_avail):
+                if defense_target is not None:
+                    ang, px, py = self._defense_flank_aim(sx, sy, defense_target)
+                    self.aim_angle = _turn_towards_angle(self.aim_angle, ang, self.last_dt,
+                                                         self.max_turn_rate, self.snap_threshold)
+                    if not self._consume_ammo_for_event(self.barrels_per_event):
+                        break
+                    rs, fs = self._spawn_event_from_angle(sx, sy, self.aim_angle, shooter.team,
+                                                          amp_deg=0.0, weave_phase=self.phase_base)
+                    rounds.extend(rs); flashes.extend(fs); fired_events += 1
+                else:
+                    # Very-close offensive PDC (rare)
+                    px, py, _ = lead_target((sx, sy), (target.x, target.y), (target.vx, target.vy), self.projectile.muzzle_v)
+                    base_ang = math.atan2(py - sy, px - sx)
+                    self.aim_angle = _turn_towards_angle(self.aim_angle, base_ang, self.last_dt,
+                                                         self.max_turn_rate, self.snap_threshold)
+                    if not self._consume_ammo_for_event(self.barrels_per_event):
+                        break
+                    rs, fs = self._spawn_event_from_angle(sx, sy, self.aim_angle, shooter.team,
+                                                          amp_deg=PDC_WAVE_DEG_OFFENSE, weave_phase=self.phase_base)
+                    rounds.extend(rs); flashes.extend(fs); fired_events += 1
+
+            self.accum -= fired_events * self.cooldown
+            return rounds, flashes
+
+        # Rails
+        if not allow_offense:
+            return [], []
+        rounds, flashes = [], []
+        fired_events = 0
+        for _ in range(events_avail):
+            aim_px, aim_py = sx + 1, sy
+            if target is not None:
+                aim_px, aim_py, _ = lead_target((sx, sy), (target.x, target.y), (target.vx, target.vy), self.projectile.muzzle_v)
+            base_ang = math.atan2(aim_py - sy, aim_px - sx)
+            self.aim_angle = _turn_towards_angle(self.aim_angle, base_ang, self.last_dt,
+                                                 self.max_turn_rate, self.snap_threshold)
+            rs, fs = self._spawn_event_from_angle(sx, sy, self.aim_angle, shooter.team,
+                                                  amp_deg=0.3, weave_phase=self.phase_base)
+            rounds.extend(rs); flashes.extend(fs); fired_events += 1
+
+        self.accum -= fired_events * self.cooldown
+        return rounds, flashes
+
+
+class MissileLauncher:
+    """
+    Accumulates missiles over time. Two modes:
+    - Player: dump=True fires ALL queued missiles (spacing = salvo_gap).
+    - Enemy: dumps automatically when threshold reached.
+    """
+    __slots__ = ("name","cooldown","accum","salvo_size","salvo_left","salvo_gap","salvo_timer",
+                 "dump_threshold","is_enemy","dump_cap_per_frame")
+
+    def __init__(self, name, cooldown: float, salvo_size: int = 2, salvo_gap: float = 0.18,
+                 dump_threshold: int = 4, is_enemy: bool = False, dump_cap_per_frame: int = 16):
+        self.name = name
+        self.cooldown = max(0.1, cooldown)
+        self.accum = random.uniform(0.0, self.cooldown*0.8)
+        self.salvo_size = max(1, salvo_size)
+        self.salvo_left = 0
+        self.salvo_gap = max(0.04, salvo_gap)
+        self.salvo_timer = 0.0
+        self.dump_threshold = max(1, dump_threshold)
+        self.is_enemy = is_enemy
+        self.dump_cap_per_frame = max(4, dump_cap_per_frame)
+
+    def update(self, dt):
+        self.accum += dt
+        self.salvo_timer = max(0.0, self.salvo_timer - dt)
+        if self.accum > self.cooldown * 6:
+            self.accum = self.cooldown * 3
+
+        events = int(self.accum // self.cooldown)
+        if events > 0:
+            self.accum -= events * self.cooldown
+            self.salvo_left += events * self.salvo_size
+
+    def fire_auto(self, shooter, target, dump: bool):
+        missiles, flashes = [], []
+        if target is None: return missiles, flashes
+        should_dump = dump or (self.is_enemy and self.salvo_left >= self.dump_threshold)
+        if not should_dump: return missiles, flashes
+
+        fired = 0
+        while self.salvo_left > 0 and fired < self.dump_cap_per_frame and self.salvo_timer <= 0.0:
+            m = Missile(shooter.x, shooter.y, shooter.team, target, shooter.vx, shooter.vy)
+            missiles.append(m)
+            flashes.append(MuzzleFlash(shooter.x, shooter.y, (200, 255, 255)))
+            self.salvo_left -= 1
+            fired += 1
+            self.salvo_timer = self.salvo_gap
+        return missiles, flashes
+
+
+# =========================
+# ========= SHIPS =========
+# =========================
+SHIP_RADIUS = {"Corvette": 10, "Destroyer": 14, "Cruiser": 18, "Battleship": 24}
+
+class Ship:
+    __slots__ = ("name","team","x","y","vx","vy","armor","health","max_health","weapons","missile_weapons","is_player")
+    def __init__(self, name, team, x, y, vx=0, vy=0, armor=200, health=1500, weapons=None, missile_weapons=None, is_player=False):
+        self.name = name
+        self.team = team  # "blue"/"red"
+        self.x, self.y = x, y
+        self.vx, self.vy = vx, vy
+        self.armor = armor
+        self.health = health
+        self.max_health = health
+        self.weapons = weapons or []
+        self.missile_weapons = missile_weapons or []
+        self.is_player = is_player
+
+    def update(self, dt):
+        self.x += self.vx * dt
+        self.y += self.vy * dt
+        for w in self.weapons: w.update(dt)
+        for mw in self.missile_weapons: mw.update(dt)
+
+    def is_destroyed(self): return self.health <= 0
+    def radius(self): return SHIP_RADIUS.get(self.name, 12)
+
+    def acquire_target(self, ships):
+        enemies = [s for s in ships if (s is not self) and (s.team != self.team) and not s.is_destroyed()]
+        if not enemies: return None
+        return min(enemies, key=lambda e: (e.x - self.x)**2 + (e.y - self.y)**2)
+
+# --------- Factories ----------
+def _pdc_weapon(template, cooldown, barrels, barrels_per_event, team: str, is_enemy: bool):
+    if template in (ROUND_PDC_40, EN_ROUND_PDC_40):
+        ammo_cap = ENEMY_PDC40_AMMO_CAP if is_enemy else PLAYER_PDC40_AMMO_CAP
+    else:
+        ammo_cap = ENEMY_PDC60_AMMO_CAP if is_enemy else PLAYER_PDC60_AMMO_CAP
+    def_radius = MISSILE_DEF_RADIUS * (ENEMY_PDC_DEF_RADIUS_MULT if is_enemy else 1.0)
+    aim_err = ENEMY_AIM_ERR_DEG if is_enemy else 0.0
+    cd = cooldown * (ENEMY_COOLDOWN_MULT if is_enemy else 1.0)
+    mepf = min(2, ENEMY_MAX_EVENTS_PER_FRAME) if is_enemy else 2
+
+    # PDCs need very high slew to snap onto missiles
+    return Weapon("PDC Battery", template, cd, wave_amp_deg=PDC_WAVE_DEG_OFFENSE, wave_freq_hz=PDC_WAVE_FREQ,
+                  barrels=barrels, barrels_per_event=barrels_per_event,
+                  max_events_per_frame=mepf,
+                  def_radius=def_radius,
+                  aim_error_deg=aim_err,
+                  ammo_capacity=ammo_cap,
+                  ammo_per_shot=PDC_AMMO_PER_SHOT,
+                  max_turn_rate_rad_s=14.0 if not is_enemy else 11.0,
+                  snap_threshold_deg=70.0 if not is_enemy else 80.0)
+
+def _rail_weapon(template, cooldown, barrels, barrels_per_event, is_enemy: bool):
+    cd = cooldown * (ENEMY_COOLDOWN_MULT if is_enemy else 1.0)
+    mepf = min(16, ENEMY_MAX_EVENTS_PER_FRAME) if is_enemy else 16
+    return Weapon("Railgun Mount", template, cd, wave_amp_deg=0.6, wave_freq_hz=1.0,
+                  barrels=barrels, barrels_per_event=barrels_per_event,
+                  max_events_per_frame=mepf,
+                  max_turn_rate_rad_s=6.0 if not is_enemy else 4.8,
+                  snap_threshold_deg=50.0 if not is_enemy else 60.0)
+
+def make_corvette(x, y):
+    is_enemy = True
+    return Ship(
+        "Corvette", "red", x, y,
+        vx=random.uniform(-40, 40), vy=random.uniform(-40, 40),
+        armor=150, health=900,
+        weapons=[
+            _pdc_weapon(EN_ROUND_PDC_40, cooldown=0.11, barrels=4,  barrels_per_event=1, team="red", is_enemy=is_enemy)
+        ],
+        missile_weapons=[]
+    )
+
+def make_destroyer(x, y, team="red", is_player=False):
+    is_enemy = (team == "red")
+    base_health = 2200 if team == "blue" else 1900
+    return Ship(
+        "Destroyer", team, x, y,
+        vx=(0 if is_player else random.uniform(-40, 40)),
+        vy=(0 if is_player else random.uniform(-40, 40)),
+        armor=420 if team == "blue" else 360,
+        health=base_health,
+        weapons=[
+            _pdc_weapon(ROUND_PDC_40 if not is_enemy else EN_ROUND_PDC_40,
+                        cooldown=0.10, barrels=8,  barrels_per_event=2, team=team, is_enemy=is_enemy),
+            _rail_weapon(ROUND_RG_S1 if not is_enemy else EN_ROUND_RG_S1,
+                         cooldown=6.5, barrels=1, barrels_per_event=1, is_enemy=is_enemy),
+        ],
+        missile_weapons=[
+            MissileLauncher("Tube A", cooldown=4.5, salvo_size=3, salvo_gap=0.20,
+                            dump_threshold=5 if is_enemy else 10, is_enemy=is_enemy, dump_cap_per_frame=12),
+            MissileLauncher("Tube B", cooldown=4.5, salvo_size=3, salvo_gap=0.20,
+                            dump_threshold=5 if is_enemy else 10, is_enemy=is_enemy, dump_cap_per_frame=12),
+        ],
+        is_player=is_player
+    )
+
+def make_cruiser(x, y):
+    is_enemy = True
+    return Ship(
+        "Cruiser", "red", x, y,
+        vx=random.uniform(-40, 40), vy=random.uniform(-40, 40),
+        armor=380, health=2800,
+        weapons=[
+            _pdc_weapon(EN_ROUND_PDC_40, cooldown=0.10, barrels=16, barrels_per_event=3, team="red", is_enemy=is_enemy),
+            _rail_weapon(EN_ROUND_RG_S2, cooldown=8.0, barrels=2, barrels_per_event=1, is_enemy=is_enemy),
+        ],
+        missile_weapons=[
+            MissileLauncher("VLS A", cooldown=4.0, salvo_size=4, salvo_gap=0.18,
+                            dump_threshold=6, is_enemy=is_enemy, dump_cap_per_frame=16),
+            MissileLauncher("VLS B", cooldown=4.0, salvo_size=4, salvo_gap=0.18,
+                            dump_threshold=6, is_enemy=is_enemy, dump_cap_per_frame=16),
+        ]
+    )
+
+def make_battleship(x, y):
+    is_enemy = True
+    return Ship(
+        "Battleship", "red", x, y,
+        vx=random.uniform(-40, 40), vy=random.uniform(-40, 40),
+        armor=520, health=4000,
+        weapons=[
+            _pdc_weapon(EN_ROUND_PDC_60, cooldown=0.12, barrels=24, barrels_per_event=4, team="red", is_enemy=is_enemy),
+            _rail_weapon(EN_ROUND_RG_S2, cooldown=8.5, barrels=3, barrels_per_event=1, is_enemy=is_enemy),
+        ],
+        missile_weapons=[
+            MissileLauncher("VLS Bank A", cooldown=3.8, salvo_size=4, salvo_gap=0.16,
+                            dump_threshold=8, is_enemy=is_enemy, dump_cap_per_frame=20),
+            MissileLauncher("VLS Bank B", cooldown=3.8, salvo_size=4, salvo_gap=0.16,
+                            dump_threshold=8, is_enemy=is_enemy, dump_cap_per_frame=20),
+            MissileLauncher("VLS Bank C", cooldown=3.8, salvo_size=4, salvo_gap=0.16,
+                            dump_threshold=8, is_enemy=is_enemy, dump_cap_per_frame=20),
+        ]
+    )
+
+
+# =========================
+# ========= GAME ==========
+# =========================
+class GameView(arcade.View):
+    def __init__(self):
+        super().__init__()
+
+        self.vx = self.vy = 0.0
+        self.x = self.y = 0.0
+        self.button = 0
+        self.background_color = arcade.color.EERIE_BLACK
+
+        # Player sprite (for HUD vectors)
+        self.player = arcade.SpriteCircle(6, arcade.color.WHITE)
+
+        # Meta/progression
+        self.wave = 1
+        self.lives = 3
+        self.score = 0
+        self.game_over = False
+
+        # Respawn/Invuln
+        self.respawn_delay = 1.75
+        self.invuln_time = 1.75
+        self.respawn_timer = 0.0
+        self.invuln_timer = 0.0
+
+        # Player ship
+        self.player_ship = make_destroyer(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, team="blue", is_player=True)
+        self.player.position = (self.player_ship.x, self.player_ship.y)
+
+        # Enemies: start wave
+        self.enemies = []
+        self.spawn_wave(self.wave)
+
+        self.rounds = []
+        self.missiles = []
+        self.effects = []  # explosions, flashes
+        self.keys = set()
+
+    # ---------------- WAVES / RESPAWN ----------------
+    def _refill_all_pdc_ammo(self):
+        for w in self.player_ship.weapons: w.refill()
+        for e in self.enemies:
+            for w in e.weapons: w.refill()
+
+    def spawn_wave(self, level: int):
+        self.enemies = []
+        margin = 100
+
+        counts = {
+            "corvette": 2 + level,
+            "destroyer": 1 + max(0, level - 1),
+            "cruiser": max(0, level - 1),
+            "battleship": max(0, (level - 2) // 2),
+        }
+
+        def rnd_pos_far_from(cx, cy, min_dist=220):
+            for _ in range(60):
+                x = random.randint(margin, WINDOW_WIDTH - margin)
+                y = random.randint(margin, WINDOW_HEIGHT - margin)
+                if math.hypot(x - cx, y - cy) >= min_dist:
+                    return x, y
+            return random.randint(margin, WINDOW_WIDTH - margin), random.randint(margin, WINDOW_HEIGHT - margin)
+
+        for _ in range(counts["corvette"]):
+            x, y = rnd_pos_far_from(self.player_ship.x, self.player_ship.y)
+            self.enemies.append(make_corvette(x, y))
+        for _ in range(counts["destroyer"]):
+            x, y = rnd_pos_far_from(self.player_ship.x, self.player_ship.y)
+            self.enemies.append(make_destroyer(x, y))
+        for _ in range(counts["cruiser"]):
+            x, y = rnd_pos_far_from(self.player_ship.x, self.player_ship.y)
+            self.enemies.append(make_cruiser(x, y))
+        for _ in range(counts["battleship"]):
+            x, y = rnd_pos_far_from(self.player_ship.x, self.player_ship.y)
+            self.enemies.append(make_battleship(x, y))
+
+        self._refill_all_pdc_ammo()
+
+    def reset_player(self):
+        self.player_ship.x = WINDOW_WIDTH / 2
+        self.player_ship.y = WINDOW_HEIGHT / 2
+        self.player_ship.vx = 0; self.player_ship.vy = 0
+        self.vx = self.vy = 0.0
+        self.player.position = (self.player_ship.x, self.player_ship.y)
+        self.player_ship.health = self.player_ship.max_health
+        self.invuln_timer = self.invuln_time
+
+        for w in self.player_ship.weapons:
+            w.accum = random.uniform(0.0, w.cooldown * 0.8); w.refill()
+        for mw in self.player_ship.missile_weapons:
+            mw.accum = random.uniform(0.0, mw.cooldown * 0.8); mw.salvo_left = 0; mw.salvo_timer = 0.0
+
+        self.rounds.clear(); self.effects.clear(); self.missiles.clear()
+
+    def kill_player(self):
+        self.effects.append(Explosion(self.player_ship.x, self.player_ship.y, is_rail=False))
+        self.lives -= 1
+        if self.lives < 0:
+            self.game_over = True; return
+        self.respawn_timer = self.respawn_delay
+
+    def maybe_next_wave(self):
+        if all(e.is_destroyed() for e in self.enemies):
+            self.wave += 1
+            self.score += 100 * self.wave
+            self.player_ship.health = min(self.player_ship.max_health, self.player_ship.health + self.player_ship.max_health * 0.35)
+            self.invuln_timer = max(self.invuln_timer, 0.8)
+            self.spawn_wave(self.wave)
+            self.rounds.clear(); self.effects.clear(); self.missiles.clear()
+
+    # ---------------- DRAW ----------------
+    def on_draw(self):
+        self.clear()
+
+        # Soft glow under ships
+        for s in self.enemies + [self.player_ship]:
+            if s.is_destroyed(): continue
+            glow_c = (255, 120, 120, 36) if s.team == "red" else (160, 200, 255, 36)
+            glow_r = int(s.radius() * 2.3)
+            arcade.draw_circle_filled(s.x, s.y, glow_r, glow_c)
+
+        # HUD
+        x, y = self.player.center_x, self.player.center_y
+        arcade.draw_line(x, y, x + self.vx * 0.4, y + self.vy * 0.4, arcade.color.GREEN, 2)
+        arcade.draw_line(x, y, (-self.vx * 0.15) + x, (-self.vy * 0.15) + y, arcade.color.RED, 2)
+        arcade.draw_line(x, y, (self.x * 100) + x, (-self.y * 100) + y, arcade.color.HONOLULU_BLUE, 3)
+
+        vel = math.sqrt(self.vx ** 2 + self.vy ** 2)
+        arcade.draw_text(f"Wave: {self.wave}   Lives: {max(0,self.lives)}   Score: {self.score}",
+                         20, WINDOW_HEIGHT - 24, arcade.color.WHITE, 14)
+        arcade.draw_text(f"Vx:{self.vx:.2f} Vy:{self.vy:.2f} | Speed:{vel:.2f}",
+                         20, WINDOW_HEIGHT - 42, arcade.color.WHITE, 12)
+
+        self.draw_player_pdc_ammo_bar(20, WINDOW_HEIGHT - 64)
+        self.draw_player_queues(20, WINDOW_HEIGHT - 84)
+
+        # Ships & health bars
+        for s in self.enemies:
+            if s.is_destroyed(): continue
+            arcade.draw_circle_filled(s.x, s.y, s.radius(), arcade.color.RED)
+            self.draw_health_bar_line(s)
+
+        if not self.game_over:
+            if self.respawn_timer > 0:
+                arcade.draw_text("Respawning...", WINDOW_WIDTH/2 - 60, WINDOW_HEIGHT/2 + 30, arcade.color.LIGHT_GRAY, 12)
+            else:
+                visible = True
+                if self.invuln_timer > 0:
+                    visible = (int(self.invuln_timer * 10) % 2) == 0
+                if visible and not self.player_ship.is_destroyed():
+                    arcade.draw_circle_filled(self.player.center_x, self.player.center_y, 6, arcade.color.WHITE)
+                self.draw_health_bar_line(self.player_ship)
+
+        if self.game_over:
+            msg = "GAME OVER — press R to restart"
+            arcade.draw_text(msg, WINDOW_WIDTH/2 - 160, WINDOW_HEIGHT/2, arcade.color.WHITE, 16)
+
+        # Projectiles, Missiles & FX
+        for r in self.rounds: r.draw()
+        for m in self.missiles: m.draw()
+        for fx in self.effects: fx.draw()
+
+    def draw_health_bar_line(self, ship):
+        r = ship.radius()
+        bar_w = r * 2 + 6
+        x1 = ship.x - bar_w / 2
+        x2 = ship.x + bar_w / 2
+        y  = ship.y + r + 10
+        arcade.draw_line(x1, y, x2, y, (60, 60, 60, 220), 3)
+
+        pct = max(0.0, min(1.0, ship.health / float(max(1.0, ship.max_health))))
+        fx2 = x1 + (bar_w - 2) * pct
+        color = (60, 220, 100, 230) if pct > 0.5 else (240, 200, 60, 230) if pct > 0.25 else (240, 80, 60, 230)
+        arcade.draw_line(x1 + 1, y, fx2, y, color, 3)
+
+    def draw_player_pdc_ammo_bar(self, x, y):
+        cap = 0; ammo = 0
+        for w in self.player_ship.weapons:
+            if is_pdc_round(w.projectile) and w.ammo_capacity is not None:
+                cap += w.ammo_capacity; ammo += (w.ammo if w.ammo is not None else 0)
+        if cap <= 0: return
+        width = 220
+        arcade.draw_line(x, y, x + width, y, (80, 80, 80, 220), 6)
+        pct = max(0.0, min(1.0, ammo / cap))
+        fg = (255, 220, 120, 240) if pct > 0.25 else (255, 120, 90, 240)
+        arcade.draw_line(x+1, y, x + 1 + int((width-2) * pct), y, fg, 6)
+        arcade.draw_text(f"PDC Ammo: {ammo}/{cap}", x, y + 8, arcade.color.WHITE, 12)
+
+    def draw_player_queues(self, x, y):
+        m_total = 0
+        for mw in self.player_ship.missile_weapons:
+            m_total += mw.salvo_left
+        r_total = 0
+        for w in self.player_ship.weapons:
+            if is_rail_round(w.projectile):
+                r_total += int(w.accum // w.cooldown)
+        arcade.draw_text(f"Queued Missiles: {m_total}   Rail Charges: {r_total}", x, y, arcade.color.WHITE, 12)
+
+    # ---------------- UPDATE ----------------
+    def on_update(self, dt):
+        if self.game_over:
+            for r in self.rounds: r.update(dt)
+            self.rounds = [r for r in self.rounds if r.alive()]
+            for m in self.missiles: m.update(dt)
+            self.missiles = [m for m in self.missiles if m.alive()]
+            for fx in self.effects: fx.update(dt)
+            self.effects = [fx for fx in self.effects if fx.alive()]
+            return
+
+        if self.respawn_timer > 0:
+            self.respawn_timer -= dt
+            if self.respawn_timer <= 0: self.reset_player()
+        if self.invuln_timer > 0: self.invuln_timer -= dt
+
+        # Input
+        if USE_JOYSTICK:
+            self.x, self.y, self.button = joystick_reader.get_input()
+            self.x, self.y, self.button = round(self.x, 2), round(self.y, 2), round(self.button)
+        else:
+            self.handle_wasd_input()
+
+        # Player physics (retrograde assist)
+        if not self.player_ship.is_destroyed() and self.respawn_timer <= 0:
+            ux, uy = self.x, -self.y
+            v_mag = math.hypot(self.vx, self.vy)
+            u_mag = math.hypot(ux, uy)
+            bonus = 1.0
+            if v_mag > 1e-4 and u_mag > 1e-4:
+                uvx, uvy = ux / u_mag, uy / u_mag
+                nvx, nvy = self.vx / v_mag, self.vy / v_mag
+                align = max(0.0, -(uvx * nvx + uvy * nvy))
+                bonus = 1.0 + align
+            thrust = PLAYER_THRUST * bonus
+            self.vx += ux * dt * thrust; self.vy += uy * dt * thrust
+            self.vx *= PLAYER_DAMPING; self.vy *= PLAYER_DAMPING
+            self.player_ship.vx, self.player_ship.vy = self.vx, self.vy
+
+        # Tick weapons
+        self.player_ship.update(dt)
+        self.player.center_x, self.player.center_y = self.player_ship.x, self.player_ship.y
+
+        # Bounds for player sprite
+        self.player.center_x = max(0, min(WINDOW_WIDTH, self.player.center_x))
+        self.player.center_y = max(0, min(WINDOW_HEIGHT, self.player.center_y))
+        self.player_ship.x, self.player_ship.y = self.player.center_x, self.player.center_y
+
+        # Enemies movement + tick their weapons
+        for s in self.enemies:
+            s.update(dt)
+            if s.x < 0 or s.x > WINDOW_WIDTH:
+                s.vx *= -1; s.x = max(0, min(WINDOW_WIDTH, s.x))
+            if s.y < 0 or s.y > WINDOW_HEIGHT:
+                s.vy *= -1; s.y = max(0, min(WINDOW_HEIGHT, s.y))
+
+        # Live lists
+        live_enemies = [e for e in self.enemies if not e.is_destroyed()]
+        all_ships = [self.player_ship] + live_enemies
+
+        # Targeting & firing
+        for s in all_ships:
+            if s.is_destroyed(): continue
+            target = s.acquire_target(all_ships)
+
+            # Player fire button triggers dumps (missiles+rails)
+            is_player = s.is_player
+            dump_now = (self.button == 1 and self.respawn_timer <= 0) if is_player else False
+
+            # PDC offense only if very close
+            pdc_offense_allowed = False
+            if target is not None:
+                close_range = CLOSE_PDC_FACTOR * max(s.radius(), target.radius())
+                pdc_offense_allowed = (math.hypot(target.x - s.x, target.y - s.y) <= close_range)
+
+            # Weapons
+            for w in s.weapons:
+                allow_offense = dump_now if (is_player and w._is_rail()) else True  # player rails dump; AI rails normal
+                rs, fs = w.fire_auto(
+                    s, target,
+                    allow_offense=allow_offense,
+                    missiles=self.missiles,
+                    dump=dump_now and w._is_rail(),
+                    pdc_offense_allowed=pdc_offense_allowed
+                )
+                self.rounds.extend(rs); self.effects.extend(fs)
+
+            # Missile launchers
+            for mw in s.missile_weapons:
+                ms, fs = mw.fire_auto(s, target, dump=dump_now if is_player else False)
+                self.missiles.extend(ms); self.effects.extend(fs)
+
+        # Cap missile count
+        if len(self.missiles) > MAX_MISSILES:
+            self.missiles = self.missiles[-MAX_MISSILES:]
+
+        # Update movers
+        for r in self.rounds: r.update(dt)
+        for m in self.missiles: m.update(dt)
+        for fx in self.effects: fx.update(dt)
+
+        # Bullet -> Ship collisions
+        for r in list(self.rounds):
+            if not r.alive(): continue
+            if r.x < -10 or r.x > WINDOW_WIDTH + 10 or r.y < -10 or r.y > WINDOW_HEIGHT + 10:
+                r.life = 0; continue
+            for s in all_ships:
+                if s.is_destroyed() or s.team == r.team:
+                    continue
+                if s.is_player and self.invuln_timer > 0:
+                    continue
+                if math.hypot(s.x - r.x, s.y - r.y) <= s.radius():
+                    E = r.kinetic_energy()
+                    mul = pierce_multiplier(r.pierce, s.armor)
+                    dmg = E * mul * DAMAGE_SCALE
+                    s.health = max(0.0, s.health - max(dmg, 0.05))
+                    self.effects.append(Explosion(r.x, r.y, is_rail=r.is_rail))
+                    r.life = 0
+                    if s.is_player and s.health <= 0 and self.respawn_timer <= 0:
+                        self.kill_player()
+                    elif (not s.is_player) and s.health <= 0:
+                        self.score += 10
+                    break
+
+        # Bullet -> Missile interceptions
+        for r in list(self.rounds):
+            if not r.alive(): continue
+            for m in self.missiles:
+                if not m.alive() or m.team == r.team: continue
+                if math.hypot(m.x - r.x, m.y - r.y) <= (m.radius + r.radius + 1.5):
+                    E = r.kinetic_energy()
+                    m.take_bullet(E, r.pierce)
+                    r.life = 0
+                    self.effects.append(Explosion(m.x, m.y, is_rail=False))
+                    break
+
+        # Missile -> Ship hits
+        for m in list(self.missiles):
+            if not m.alive(): continue
+            for s in all_ships:
+                if s.is_destroyed() or s.team == m.team:
+                    continue
+                if s.is_player and self.invuln_timer > 0:
+                    continue
+                if math.hypot(s.x - m.x, s.y - m.y) <= (s.radius() + m.radius):
+                    mul = pierce_multiplier(MISSILE_PIERCE, s.armor)
+                    dmg = MISSILE_WARHEAD_ENERGY * mul * MISSILE_DAMAGE_SCALE
+                    s.health = max(0.0, s.health - max(dmg, 2.0))
+                    self.effects.append(Explosion(m.x, m.y, is_rail=False))
+                    m.alive_flag = False
+                    if s.is_player and s.health <= 0 and self.respawn_timer <= 0:
+                        self.kill_player()
+                    elif (not s.is_player) and s.health <= 0:
+                        self.score += 25
+                    break
+
+        # Cleanup
+        self.rounds = [r for r in self.rounds if r.alive()]
+        self.missiles = [m for m in self.missiles if m.alive()]
+        self.effects = [fx for fx in self.effects if fx.alive()]
+
+        # Wave completion
+        self.maybe_next_wave()
+
+    # ---------------- INPUT ----------------
+    def handle_wasd_input(self):
+        self.x = self.y = 0
+        self.button = 0
+        if arcade.key.SPACE in self.keys:
+            self.button = 1
+        if arcade.key.W in self.keys:   self.y = -1
+        elif arcade.key.S in self.keys: self.y = 1
+        if arcade.key.A in self.keys:   self.x = -1
+        elif arcade.key.D in self.keys: self.x = 1
+
+    def on_key_press(self, key, mods):
+        if key == arcade.key.R and self.game_over:
+            self.__init__(); return
+        self.keys.add(key)
+
+    def on_key_release(self, key, mods):
+        if key in self.keys: self.keys.remove(key)
+
+
+# ---------------- MAIN ----------------
+def main():
+    window = arcade.Window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE)
+    view = GameView()
+    window.show_view(view)
+    arcade.run()
+
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+        <pre x-show="tab==='arduino'"><code id="code-arduino">const int xPin  = A0;
+const int yPin  = A1;
+const int btnPin = A2;   // joystick push switch
+
+void setup() {
+  pinMode(btnPin, INPUT_PULLUP);   // reads HIGH normally, LOW when pressed
+  Serial.begin(115200);
+}
+
+void loop() {
+  static unsigned long lastTime = 0;
+  unsigned long now = millis();
+
+  if (now - lastTime >= 16) {            // ~60 Hz
+    int x = analogRead(xPin);
+    int y = analogRead(yPin);
+    int btn = digitalRead(btnPin) == LOW ? 1 : 0;   // active-low → 1 = pressed
+    Serial.print(x);
+    Serial.print(',');
+    Serial.print(y);
+    Serial.print(',');
+    Serial.println(btn);
+    lastTime = now;
+  }
+}
+</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-gray-900">
+    <div class="mx-auto max-w-7xl px-6 py-3 text-right text-sm text-sky-50">developed by abhirv jatar</div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('copyBtn');
+      const blocks = {
+        python: document.getElementById('code-python'),
+        arduino: document.getElementById('code-arduino')
+      };
+      function activeText(){
+        for(const el of Object.values(blocks)){
+          if(el.parentElement.style.display !== 'none'){ return el.innerText; }
+        }
+        return '';
+      }
+      btn?.addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(activeText()); btn.textContent = 'Copied'; }
+        catch { btn.textContent = 'Copy failed'; }
+        setTimeout(()=>btn.textContent='Copy', 1100);
+      });
+    });
+  </script>
+</body>
+</html>
