@@ -6,6 +6,25 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <title>Abhirv Jatar - Portfolio</title>
+    <style>
+      @keyframes gradient-glow {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+      }
+      .extended-glow {
+        background: linear-gradient(135deg, #f97316, #ef4444, #dc2626, #f97316);
+        background-size: 300% 300%;
+        animation: gradient-glow 4s ease infinite;
+        padding: 3px;
+      }
+      .extended-glow > div {
+        background: white;
+        border-radius: 0.65rem;
+      }
+      .extended-glow:hover {
+        box-shadow: 0 0 25px rgba(249, 115, 22, 0.5), 0 0 50px rgba(239, 68, 68, 0.3);
+      }
+    </style>
   </head>
   <body class="bg-gray-50">
     <!-- Header -->
@@ -38,12 +57,14 @@
           <div 
             @click="openProject(project)" 
             :class="[
-              'hover:scale-105 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-double cursor-pointer',
-              project.image ? 'border-slate-600' : 'border-slate-300'
+              'hover:scale-105 transition-all duration-300 mx-8 w-1/3 rounded-xl cursor-pointer',
+              project.hasExtended ? 'extended-glow' : 'shadow-lg border-4 border-double ' + (project.image ? 'border-slate-600' : 'border-slate-300')
             ]"
           >
-            <h1 class="text-center text-3xl font-stretch-expanded" x-text="project.title"></h1>
-            <p class="text-center text-xl text-slate-600" x-text="project.short"></p>
+            <div :class="project.hasExtended ? 'py-12 rounded-xl' : 'py-12'">
+              <h1 class="text-center text-3xl font-stretch-expanded" x-text="project.title"></h1>
+              <p class="text-center text-xl text-slate-600" x-text="project.short"></p>
+            </div>
           </div>
         </template>
       </div>
@@ -54,12 +75,14 @@
           <div 
             @click="openProject(project)" 
             :class="[
-              'hover:scale-105 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-double cursor-pointer',
-              project.image ? 'border-slate-600' : 'border-slate-300'
+              'hover:scale-105 transition-all duration-300 mx-8 w-1/3 rounded-xl cursor-pointer',
+              project.hasExtended ? 'extended-glow' : 'shadow-lg border-4 border-double ' + (project.image ? 'border-slate-600' : 'border-slate-300')
             ]"
           >
-            <h1 class="text-center text-3xl font-stretch-expanded" x-text="project.title"></h1>
-            <p class="text-center text-xl text-slate-600" x-text="project.short"></p>
+            <div :class="project.hasExtended ? 'py-12 rounded-xl' : 'py-12'">
+              <h1 class="text-center text-3xl font-stretch-expanded" x-text="project.title"></h1>
+              <p class="text-center text-xl text-slate-600" x-text="project.short"></p>
+            </div>
           </div>
         </template>
       </div>
@@ -70,12 +93,14 @@
           <div 
             @click="openProject(project)" 
             :class="[
-              'hover:scale-105 transition-transform duration-300 mx-8 w-1/3 py-12 rounded-xl shadow-lg border-4 border-double cursor-pointer',
-              project.image ? 'border-slate-600' : 'border-slate-300'
+              'hover:scale-105 transition-all duration-300 mx-8 w-1/3 rounded-xl cursor-pointer',
+              project.hasExtended ? 'extended-glow' : 'shadow-lg border-4 border-double ' + (project.image ? 'border-slate-600' : 'border-slate-300')
             ]"
           >
-            <h1 class="text-center text-3xl font-stretch-expanded" x-text="project.title"></h1>
-            <p class="text-center text-xl text-slate-600" x-text="project.short"></p>
+            <div :class="project.hasExtended ? 'py-12 rounded-xl' : 'py-12'">
+              <h1 class="text-center text-3xl font-stretch-expanded" x-text="project.title"></h1>
+              <p class="text-center text-xl text-slate-600" x-text="project.short"></p>
+            </div>
           </div>
         </template>
       </div>
@@ -163,7 +188,8 @@
           modalOpen: false,
           activeProject: null,
           projects: [
-            { title: "Spaceshot 2", short: "arduino space physics game", image: "https://images2.imgbox.com/8f/d9/usws9UIm_o.png", description: "Arduino joystick-based physics game. Shoot projectiles and move in newtonian flight.", link: "projects/spaceshot2/index.html" },
+            { title: "KingPin", short: "bowling tracking application", image: "projects/kingpin/shot-1.png", description: "Team project: full-stack bowling tracking app for coaches and players. I led backend development, database architecture (Firestore), hosting, and email management. Built with HTML/CSS/JS, Node.js, and Firestore.", link: "projects/kingpin/index.html", hasExtended: true },
+            { title: "Spaceshot 2", short: "arduino space physics game", image: "projects/spaceshot2/shot-1.png", description: "Arduino joystick-based physics game. Shoot projectiles and move in newtonian flight.", link: "projects/spaceshot2/index.html", hasExtended: true },
             { title: "Spaceshot", short: "space lancing game", image: "https://images2.imgbox.com/ba/b8/TXscfxwQ_o.png", description: "Shoot asteroids in this fast-paced action game.", link: "projects/spaceshot/index.html" },
             { title: "Snake", short: "simple snake game", image: "https://images2.imgbox.com/ac/08/Iuvmx8lF_o.png", description: "Classic snake game with a modern twist.", link: "projects/snake/index.html" },
             { title: "Breakfast Bash", short: "pong game with modes", image: "https://images2.imgbox.com/b9/d6/9o9ZHi0J_o.png", description: "Pong with fun breakfast-themed twists.", link: "projects/breakfast/index.html" },
