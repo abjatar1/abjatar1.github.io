@@ -154,7 +154,7 @@
           <img 
             :src="activeProject?.image" 
             alt="" 
-            class="object-cover w-full h-full"
+            :class="activeProject?.imageFit === 'contain' ? 'object-contain bg-slate-100 p-2 w-full h-full' : 'object-cover w-full h-full'"
             x-show="activeProject?.image"
           >
           <!-- Placeholder -->
@@ -190,6 +190,7 @@
           projects: [
             { title: "KingPin", short: "bowling tracking application", image: "projects/kingpin/shot-1.png", description: "Team project: full-stack bowling tracking app for coaches and players. I led backend development, database architecture (Firestore), hosting, and email management. Built with HTML/CSS/JS, Node.js, and Firestore.", link: "projects/kingpin/index.html", hasExtended: true },
             { title: "Spaceshot 2", short: "arduino space physics game", image: "projects/spaceshot2/shot-1.png", description: "Arduino joystick-based physics game. Shoot projectiles and move in newtonian flight.", link: "projects/spaceshot2/index.html", hasExtended: true },
+            { title: "Garden State CTF", short: "cybersecurity competition", image: "projects/gardenstatectf/shot-1.png", imageFit: "contain", description: "My team Ctrl+Alt+Defeaters scored 15,925 points at Garden State CTF 2026. I contributed around 7,000 points, we placed 26th overall by team, and as our school's top team we represented our school in 9th among schools.", link: "projects/gardenstatectf/index.html", hasExtended: true },
             { title: "Spaceshot", short: "space lancing game", image: "https://images2.imgbox.com/ba/b8/TXscfxwQ_o.png", description: "Shoot asteroids in this fast-paced action game.", link: "projects/spaceshot/index.html" },
             { title: "Snake", short: "simple snake game", image: "https://images2.imgbox.com/ac/08/Iuvmx8lF_o.png", description: "Classic snake game with a modern twist.", link: "projects/snake/index.html" },
             { title: "Breakfast Bash", short: "pong game with modes", image: "https://images2.imgbox.com/b9/d6/9o9ZHi0J_o.png", description: "Pong with fun breakfast-themed twists.", link: "projects/breakfast/index.html" },
