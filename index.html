@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="app.js" defer></script>
+  <script src="//unpkg.com/alpinejs" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet" />
@@ -62,6 +64,22 @@
         transform: translateY(0);
       }
     }
+
+    @keyframes hello-scroll {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .animate-hello-scroll {
+      display: inline-flex;
+      width: max-content;
+      animation: hello-scroll 70s linear infinite;
+    }
   </style>
 </head>
 <body>
@@ -78,7 +96,10 @@
   <main>
     <section class="hero-noise border-b border-slate-200/80">
       <div class="mx-auto grid w-full max-w-6xl gap-10 px-6 py-20 md:grid-cols-[1.2fr_0.8fr] md:items-center">
-        <div>
+        <div x-data="getHello()" x-init="init()">
+          <p class="reveal reveal-delay-1 mb-3 text-3xl font-bold lowercase text-teal-800 sm:text-4xl">
+            <span x-text="hello"></span><span class="text-base font-semibold normal-case text-slate-600 sm:text-lg">, hiring team!</span>
+          </p>
           <p class="reveal inline-flex rounded-full border border-teal-700/30 bg-teal-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-teal-900">High school developer</p>
           <h1 class="display reveal reveal-delay-1 mt-5 text-4xl font-extrabold leading-tight text-slate-900 sm:text-5xl lg:text-6xl">
             I build fast, playful web apps with real engineering behind them.
@@ -112,6 +133,13 @@
             Latest highlight: Garden State CTF
           </a>
         </aside>
+      </div>
+    </section>
+
+    <section x-data="getHelloBar()" x-init="init()" class="overflow-hidden border-b border-slate-200 bg-white/80">
+      <div class="animate-hello-scroll py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500 sm:text-sm">
+        <span x-text="line" class="shrink-0 pr-4"></span>
+        <span x-text="line" class="shrink-0 pr-4"></span>
       </div>
     </section>
 

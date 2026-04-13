@@ -1,6 +1,6 @@
 function getHello() {
     return {
-        hello: "\u00A0", // placeholder to start (non-breaking space)
+        hello: "hello",
         greetings: [
             "Hola",         // Spanish
             "你好",          // Mandarin Chinese
@@ -8,7 +8,7 @@ function getHello() {
             "हेलो",         // Hindi
             "Bonjour",      // French
             "Привет",       // Russian
-            "Haloa",        // Hawaiian
+            "Aloha",        // Hawaiian
             "こんにちは",    // Japanese
             "Olá",          // Portuguese
             "안녕하세요",    // Korean
@@ -23,52 +23,115 @@ function getHello() {
         ],
 
         index: 0,
-        typingInterval: null,
-        mode: "typing", // typing or deleting
+        timer: null,
 
-        typeText(text) {
-            let word = text.toLowerCase()     // convert to lowercase here
-            let i = 0
-            this.hello = "\u00A0" // reset but keep placeholder
-            this.mode = "typing"
+        getCurrentWord() {
+            if (!Array.isArray(this.greetings) || this.greetings.length === 0) {
+                return "hello";
+            }
 
-            this.typingInterval = setInterval(() => {
-                if (this.mode === "typing") {
-                    // remove placeholder before adding first char
-                    if (this.hello === "\u00A0") this.hello = ""
-                    this.hello += word[i]
-                    i++
-                    if (i >= word.length) {
-                        this.mode = "waiting"
-                        clearInterval(this.typingInterval)
-                        setTimeout(() => this.deleteText(), 1000) // pause before delete
-                    }
-                }
-            }, 150) // typing speed
+            const word = this.greetings[this.index] ?? "hello";
+            return String(word).toLowerCase();
         },
 
-        deleteText() {
-            this.mode = "deleting"
-            this.typingInterval = setInterval(() => {
-                // keep at least placeholder
-                if (this.hello.length > 1 || this.hello !== "\u00A0") {
-                    this.hello = this.hello.slice(0, -1) || "\u00A0"
+        clearTimer() {
+            if (this.timer) {
+                clearTimeout(this.timer);
+                this.timer = null;
+            }
+        },
+
+        typeFromStart() {
+            const word = this.getCurrentWord();
+            this.hello = "\u00A0";
+
+            let i = 0;
+            const step = () => {
+                if (i >= word.length) {
+                    this.timer = setTimeout(() => this.deleteToEmpty(), 900);
+                    return;
                 }
 
                 if (this.hello === "\u00A0") {
-                    clearInterval(this.typingInterval)
-                    this.index = (this.index + 1) % this.greetings.length
-                    setTimeout(() => this.typeText(this.greetings[this.index]), 300) // pause before next word
+                    this.hello = "";
                 }
-            }, 100) // deleting speed
+                this.hello += word[i];
+                i += 1;
+                this.timer = setTimeout(step, 110);
+            };
+
+            step();
+        },
+
+        deleteToEmpty() {
+            const step = () => {
+                if (!this.hello || this.hello.length <= 1) {
+                    this.hello = "\u00A0";
+                    this.index = (this.index + 1) % this.greetings.length;
+                    this.timer = setTimeout(() => this.typeFromStart(), 220);
+                    return;
+                }
+
+                this.hello = this.hello.slice(0, -1);
+                this.timer = setTimeout(step, 80);
+            };
+
+            step();
         },
 
         init() {
-            this.typeText(this.greetings[this.index])
+            this.clearTimer();
+            this.index = 0;
+            this.typeFromStart();
         },
 
         destroy() {
-            clearInterval(this.typingInterval)
+            this.clearTimer();
         }
     }
+}
+
+function getHelloBar() {
+    return {
+        greetings: [
+            "hello",
+            "hola",
+            "bonjour",
+            "hallo",
+            "ciao",
+            "namaste",
+            "salaam",
+            "shalom",
+            "konnichiwa",
+            "annyeong",
+            "merhaba",
+            "ola",
+            "hej",
+            "ahoj",
+            "zdravo",
+            "privet",
+            "ni hao",
+            "sawasdee",
+            "xin chao",
+            "selamat",
+            "aloha",
+            "kia ora"
+        ],
+
+        line: "",
+        init() {
+            this.greetings = this.shuffle(this.greetings);
+            const base = this.greetings.join("   |   ");
+            this.line = `${base}   |   ${base}   |   ${base}   |`;
+        },
+
+        shuffle(arr) {
+            let array = arr.slice();
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    };
 }
